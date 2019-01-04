@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>Magnus Haw | Publications</title>{% endblock %}
+
+{% block pub-active %}style="color: blue"{% endblock %}
+
+{% block content %}
+<!--
+<div class="row">
+<div class="large-12 columns">
+&nbsp;<br> <p>My current research in the <a href="http://ve4xm.caltech.edu/Bellan_plasma_page/">Bellan Lab</a> studies the dynamics and interaction of finite-beta flux ropes using a combination of experiments, simulations, and analytic models. Of primary interest are the dynamics of flux ropes with low aspect ratio (R/r &#60; 5), the 3D magnetic reconnection in merging flux ropes, and the waves generated from these fast reconnection events. More detailed information on my specific projects is <a href="projects.html">here</a>.</p>
+</div>
+</div>
+
+
+<div class="row hide-for-medium-only hide-for-small-only">
+<div class="large-4 column">
+<center>
+<p><a href="projects.html#doubleloop"><img src="images/doubleloop.png"></p>
+Double loop experiment</a>
+</center>
+</div>
+
+<div class="large-4 column">
+<center>
+<p><a href="projects.html#simulation"><img src="images/cusp-extended.png"></p>
+Single loop experiment</a>
+</center>
+</div>
+
+<div class="large-4 column">
+<center>
+<p><a href="projects.html#quadprobe"><img src="images/jet.png"></p>
+<a href="projects.html#quadprobe">Astrophysical jet experiment</a>
+</center>
+</div>
+
+</div>
+</div>
+-->
+
+<hr>
+<div class="row column">
+<a name="publications"></a>
+<h4 style="margin: 0;" class="text-center">PEER REVIEWED PUBLICATIONS</h4>
+</div>
+<hr>
+<div class="row">
+<div class="large-12 columns">
+<article>
+
+
+<!--
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/loopsim.png" alt="synthetic image from simulation"></p>
+</div>
+<div class="large-10 columns">
+<h5>3D MHD finite beta simulation of experimental arched flux rope: flows and stability</h5>
+<p>
+<span><i class="fi-torso"> M. Haw*, P. Wongwaitayakornkul, P.M. Bellan, H. Li, S. Li &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> (in preparation) &nbsp;&nbsp;</i></span>
+</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> 
+</div>
+</div> -->
+
+{% for article in articles %}
+<hr>
+<div class="row">
+  <div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+    <p><img src="{{article.image.url}}" alt="theory for CME cavity formation"></p>
+  </div>
+
+  <div class="large-10 columns">
+    <a href="{{article.url}}"><h5>{{article.title}}</h5></a>
+    <p>
+      <span><i class="fi-torso"> {% for auth in article.authors.all %}{{auth.firstname}} {{auth.lastname}}, {% endfor %}</i></span><br>
+      <span><i class="fi-calendar">{{article.journal.abrvname}} ({{article.year}}) Vol. {{article.volume}}, {{article.number}} &nbsp;&nbsp;</i></span>
+    </p> 
+  </div>
+</div>
+{% endfor %}
+
+<!--
+<hr>
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/reverse-current.png" alt="theory for CME cavity formation"></p>
+</div>
+<div class="large-10 columns">
+<a href="https://doi.org/10.3847/2041-8213/aad33c"><h5>Reverse Current Model for Coronal Mass Ejection Cavity Formation</h5></a>
+<p>
+<span><i class="fi-torso"> Magnus A. Haw*, Pakorn Wongwaitayakornkul, Hui Li, Paul M Bellan &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> Astrophysical Journal Letters (2018) Vol. 862, 2 &nbsp;&nbsp;</i></span>
+</p> 
+</div>
+</div>
+
+<hr>
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/caltech-cusp.png" alt="image of flux rope with apex dip"></p>
+</div>
+<div class="large-10 columns">
+<a href="https://doi.org/10.3847/1538-4357/aa8990"><h5>Apex Dips of Experimental Flux Ropes: Helix or Cusp?</h5></a>
+<p>
+<span><i class="fi-torso"> P. Wongwaitayakornkul, M. Haw*, P.M. Bellan, H. Li, S. Li &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> Astrophysical Journal (2017) Vol. 848, 2 &nbsp;&nbsp;</i></span>
+</p> 
+</div>
+</div>
+
+<hr>
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/3D.png" alt="3D B, J, and JxB"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://dx.doi.org/10.1002/2017GL074505"><h5>MHD collimation mechanism in arched flux ropes characterized using volumetric, time-dependent B-vector measurements</h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw*, P.M. Bellan &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> Geophys. Res. Lett. (Oct. 2017)  &nbsp;&nbsp;</i></span>
+</p>
+</div>
+</div>
+
+<hr>
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/CAI.png" alt="3 sources"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://dx.doi.org/10.1063/1.4917345"><h5>1D fast coded aperture camera</h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw*, P.M. Bellan &nbsp;&nbsp;</i></span> <br>
+<span><i class="fi-calendar"> Rev. of Sci. Instr. (2015) 86, 043506 &nbsp;&nbsp;</i></span>
+</p> 
+</div>
+</div>
+
+<hr>
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/PA_spectrum.png" alt="hyperfine splitting"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://dx.doi.org/10.1103/PhysRevA.87.052505"><h5>High resolution photoassociation spectroscopy of the 6Li2 13E+g state</h5></a>
+<p>
+<span><i class="fi-torso"> M. Semczuk*, X. Li, W. Gunton, M. Haw, N.S. Dattani, J. Witz, A.K. Mills, D.J. Jones, and K.W. Madison &nbsp;&nbsp;</i></span> <br>
+<span><i class="fi-calendar">Phys. Rev. A. (2013) 87 &nbsp;&nbsp;</i></span>
+</p>
+</div>
+</div>
+<hr>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="images/MOT.jpeg" alt="MOT cell"></p>
+</div>
+<div class="large-10 columns">
+<a href="https://doi.org/10.1364/JOSAB.29.000475"><h5>Magneto-optical trap loading rate dependence on trap depth and vapor density</h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw, N. Evetts, W. Gunton, J.V. Dongen, J.L. Booth*, and K.W. Madison &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> JOSA B, (2012) Vol. 29, Issue 3, 
+pp. 475-483 &nbsp;&nbsp;</i></span>
+</p>
+</div>
+</div>
+
+</article>
+</div>
+</div>
+
+-->
+
+<hr>
+<div class="row column">
+<h4 style="margin: 0;" class="text-center">OTHER PUBLICATIONS/TALKS</h4>
+</div>
+<hr>
+<div class="row">
+<div class="large-12 columns">
+<article>
+
+
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+	<p><img src="{% static 'images/PA_spectrum.png' %}" alt="hyperfine splitting"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://hdl.handle.net/2429/43353"><h5>Single Color Photoassociation Spectroscopy of 6Li2 and 85Rb2 (Undergraduate Thesis) </h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar">UBC cIRcle repository (2012) &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+	<p><img src="{% static 'images/rocket.png' %}" alt="rocket ignition"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://hdl.handle.net/2429/7905"><h5>A8-3 Model Rocket Impulse Measurement</h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar">UBC cIRcle repository (2009) &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+	<p><img src="{% static 'images/enceladus.jpg'%}"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://adsabs.harvard.edu/abs/2008DPS....40.5804C"><h5>Time of Formation and Chemical Alteration of Small Icy Objects in the Outer Solar System</h5></a>
+<p>
+<span><i class="fi-torso">J. Castillo-Rogez*, M. Haw, S. Vance, D. Matson, T. Johnson &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar">BAAS, (2008) Vol. 40, p.503 &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="{% static 'images/accretion.jpeg' %}"></p>
+</div>
+<div class="large-10 columns">
+<h5>Revised estimate of black hole size using speed of sound in high temperature plasmas</h5>
+<p>
+<span><i class="fi-torso">R. Sivron*, M. Haw, B. Liu, E. Jin &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> Mid-American Regional Astrophysics Conference 2008 (MARAC), Kansas City, MO (talk) &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+</article>
+</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<footer> 
+<div class="row expanded callout secondary">
+<!--
+<div class="large-4 columns">
+<h5>FLICKR IMAGES</h5>
+<div class="row small-up-4">
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+<div class="column"><img class="thumbnail" src="https://placehold.it/75" alt="image of space dog"></div>
+</div>
+</div>
+<div class="large-4 columns">
+<h5>FLICKR IMAGES</h5>
+<span class="secondary label">Space</span>
+<span class="secondary label">Galaxies</span>
+<span class="secondary label">Milky Way</span>
+<span class="secondary label">Black Holes</span>
+<span class="secondary label">Rebels</span>
+<span class="secondary label">Death Star</span>
+<span class="secondary label">Republic</span>
+<span class="secondary label">R2D2</span>
+</div> 
+<div class="large-4 columns">
+<h5>RANDOM MAG</h5>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti quam voluptatum vel repellat ab similique molestias molestiae ea omnis eos, id asperiores est praesentium, voluptate officia nulla aspernatur sequi aliquam.</p>
+</div>
+</div> -->
+
+<div class="medium-6 columns">
+<ul class="menu align-right">
+<li class="menu-text">Last updated: Dec. 7, 2018</li>
+</ul>
+</div>
+</div>
+</footer>
+{% endblock %}
+

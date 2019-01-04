@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Magnus Haw | Welcome</title>{% endblock %}
+
+{% block projects-active %}style="color: blue"{% endblock %}
+
+{% block content %}
+<hr>
+<div class="row column">
+<h4 style="margin: 0;" class="text-center">CURRENT PROJECTS</h4>
+</div>
+<hr>
+<div class="row">
+
+<div class="large-12 columns" style="border-right: 1px solid #E3E5E8; border-left: 1px solid #E3E5E8;">
+<article>
+
+{% for p in projects %}
+<div class="row">
+<div class="large-3 columns">
+<p><img src="{{p.image.url}}" alt="image for article" alt="article preview image"></p>
+</div>
+<div class="large-9 columns">
+<a name="doubleloop"></a>
+<h5>{{p.name}}</h5>
+<p>
+</p>
+<p>{{p.summary}}</p>
+</div>
+</div>
+
+<hr>
+{% endfor %}
+<!--
+<div class="row">
+<div class="large-3 columns">
+<p><img src="images/caltech-cusp-sim.png" alt="image for article" alt="article preview image"></p>
+</div>
+<div class="large-9 columns">
+<a name="simulation"></a>
+<h5>3D MHD simulation of single loop</h5>
+<p>
+</p>
+<p> Development of a new 3D MHD simulation of the Caltech solar loop experiment. The simulation uses the MHD solver module from the Los Alamos COMPutational Astrophysics Simulation Suite (LA-COMPASS) to evolve B, v, ρ, and P on a Cartesian grid using the dimensionless ideal MHD equations. Initial conditions for ρ, v , and B are scaled to experimental measurements and pressure is calculated assuming constant temperature. To replicate the boundary conditions from the electrodes, poloidal flux is injected into the domain to match the experimentally measured current. A heavy, cold wall is added at the base plane to provide anchoring of the footpoints and simulate the effect of the surrounding metal.</p>
+
+<p>The resulting simulation has excellent agreement with experimental observations in shape, velocity, and magnetic field. Analysis of axial flow and shock propagation also agree with observation and theory. In addition to validating the simulation, this agreement with experiment gives confidence that the essential physics of the experiment is well characterized. Since non-uniform initial density and various boundary fluxes (e.g. mass, helicity) are critical to accurately modeling the experiment, it is likely that similar detail is necessary for modeling solar loops and solar eruptions.</p>
+</div>
+</div>
+<hr>
+
+<div class="row">
+<div class="large-3 columns">
+<p><img src="images/qp.png" alt="quad-probe"></p>
+</div>
+<div class="large-9 columns">
+<a name="quadprobe"></a>
+<h5>High speed magnetic probe for measurement of wavevector</h5>
+<p>
+</p>
+<p>This is a new type of magnetic probe designed to measure B and J vectors at a single location. The probe consists of four 3-axis, high speed, B-dot clusters arranged in a tetrahedron and is designed to measure waves generated from fast magnetic reconnection events in the Caltech jet experiment. The probe has 24 channels, a noise rejection of 70 dB and is digitized at 100 MHz. This work is motivated by Ref. [1], which provides a method to solve for the wave dispersion, k(w), given simultaneous measurements B and J fluctuations at the same location. </p>
+
+<p><a href="http://dx.doi.org/10.1002/2016JA022827">[1] Revised Single-Spacecraft Method for Determining Wavevector k and Resolving Space-time Ambiguity, P. M. Bellan JGR (2016)</a> </p>
+</div>
+</div>
+-->
+</article>
+</div>
+
+</div>
+
+<div class="row column">
+<h4 style="margin: 0;" class="text-center">COMPLETED PROJECTS</h4>
+</div>
+<hr>
+<div class="row">
+
+<div class="large-12 columns" style="border-right: 1px solid #E3E5E8; border-left: 1px solid #E3E5E8;">
+<article>
+
+{% for p in completedprojects %}
+<hr>
+<div class="row">
+<div class="large-3 columns">
+<p><img src="{{p.image.url}}" alt="image for article" alt="article preview image"></p>
+</div>
+<div class="large-9 columns">
+  <h5>{{p.name}}</h5>
+  <p>
+  {{p.summary}}
+  </p>
+  </div>
+  </div>
+{% endfor %}
+
+</article>
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<footer> 
+<div class="row expanded callout secondary">
+<div class="medium-6 columns">
+<ul class="menu align-right">
+<li class="menu-text">Last updated: Dec. 13, 2017</li>
+</ul>
+</div>
+</div>
+</footer>
+{% endblock %}

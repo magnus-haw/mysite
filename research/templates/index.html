@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Magnus Haw | Welcome</title>{% endblock %}
+{% block home-active %}style="color: blue"{% endblock %}
+{% load static %}
+{% block content %}
+
+<br>
+
+<div class="row">
+  <div class="medium-8 columns">
+	  <p><img src="{% static 'images/3d-B_and_J.png' %}" alt="main article image"></p>
+    <center>Plot of 3D B and J-field measurements taken on Caltech double-loop experiment</center><br>
+  </div>
+
+  <div class="medium-4 columns">
+
+    <hr>
+    <center>
+      <a href="cv.pdf"><h5>CV</h5></a><hr>
+      <a href="research.html#publications"><h5>Publications</h5></a>
+    </center>
+
+   <hr>
+   <center><h5>Contact Information</h5></center><br>
+     <p>
+     Name: Magnus Haw<br>
+     Email: <b>[firstname].[lastname][at]nasa.gov</b><br>
+     </p>
+     <p>Mailing Address:<br>
+     {{address.title}}<br>
+     {{address.street}}<br>
+     {{address.city}}, {{address.state}} {{address.zipcode}}</p>
+  </div>
+</div>
+
+
+<div class="row">
+<div class="large-12 columns"><hr>
+I am a postdoc at NASA Ames in the <a href="https://www.nasa.gov/centers/ames/thermophysics-facilities-home">Thermophysics branch</a>. I did my graduate work in the <a href="http://www.bellanplasmagroup.caltech.edu/">Bellan group</a> at <a href="http://www.caltech.edu">Caltech</a> in Pasadena, California. I can be reached by e-mail should you have any questions or comments about my work, be interested in a copy of one of my talks or posters, or otherwise wish to contact me.
+
+Thanks for stopping by!<br>
+&nbsp;
+</div><hr>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer>
+<div class="row expanded callout secondary">
+<div class="medium-6 columns">
+<ul class="menu align-right">
+<li class="menu-text">Last updated: Dec. 27, 2018</li>
+</ul>
+</div>
+</div>
+</footer>
+{% endblock %}

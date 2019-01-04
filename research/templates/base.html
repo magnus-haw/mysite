@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	{% block title %}<title>Magnus Haw | Welcome</title>{% endblock %}
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/foundation.min.css' %}"> <!--
+<link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel='stylesheet' type='text/css'> -->
+ 
+</head>
+<body>
+ 
+<style>.fi-social-facebook{color:dodgerblue;font-size:2rem;}.fi-social-youtube{color:red;font-size:2rem;}.fi-social-pinterest{color:darkred;font-size:2rem;}i.fi-social-instagram{color:brown;font-size:2rem;}i.fi-social-tumblr{color:navy;font-size:2rem;}.fi-social-twitter{color:skyblue;font-size:2rem;}</style>
+
+<header>
+ 
+ 
+<div class="top-bar">
+
+<table width="80%" align="center"><tr>
+
+<td align="center" colstart=1 class="hide-for-medium-only hide-for-small-only">
+<h3>Magnus Haw</h3>
+<a href="https://www.nasa.gov/ames">NASA Ames Research Center</a><br></td>
+
+<td align="center" colstart=2>
+	<a {% block home-active %}{% endblock %} href="{% url 'index' %}"><h3>Home</h3></a>
+</td>
+
+<td align="center" colstart=3>
+<a {% block pub-active %}{% endblock %} href="{% url 'publications' %}"><h3>Publications</h3></a>
+</td>
+
+<td align="center" colstart=4>
+<a {% block projects-active %}{% endblock %} href="{% url 'projects' %}"><h3>Projects</h3></a>
+</td>
+
+<td align="center" colstart=5>
+	<a {% block other-active %}{% endblock %} href="{% url 'other' %}"><h3>Other</h3></a>
+</td> 
+
+</tr></table>
+
+</div>
+
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+</body>
+</html>
+
