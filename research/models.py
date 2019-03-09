@@ -17,6 +17,9 @@ class Address(models.Model):
     country= models.IntegerField(choices=Countries,default=0)
     zipcode= models.CharField(max_length=10)
 
+    class Meta:
+        verbose_name_plural = "addresses"
+
 class Person(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)

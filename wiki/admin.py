@@ -13,9 +13,6 @@ class CategoryAdmin(admin.ModelAdmin):
     inlines = (ArticleInline,)
     readonly_fields= ['updated', 'created',]
 
-    class Meta:
-        verbose_name_plural = "categories"
-
 class TopicAdmin(admin.ModelAdmin):
     list_display=('name','created','visible',)
     inlines = (ArticleInline,)
