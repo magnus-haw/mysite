@@ -13,6 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
     inlines = (ArticleInline,)
     readonly_fields= ['updated', 'created',]
 
+    class Meta:
+        verbose_name_plural = "categories"
+
 class TopicAdmin(admin.ModelAdmin):
     list_display=('name','created','visible',)
     inlines = (ArticleInline,)
@@ -27,6 +30,10 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display=('name','created','visible',)
     readonly_fields= ['updated', 'created','object_id',
                       'content_object','content_type']
+
+    def has_module_permission(self, request):
+        return False
+
 
 admin.site.register(Subtopic,SubtopicAdmin)
 admin.site.register(Topic,TopicAdmin)

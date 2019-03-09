@@ -24,6 +24,8 @@ class PersonAdmin(admin.ModelAdmin):
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('title', 'street','city','state','zipcode')
     list_filter = ['state']
+    class Meta:
+        verbose_name_plural = "addresses"
 
 class JournalAdmin(admin.ModelAdmin):
     list_display = ('name',)
