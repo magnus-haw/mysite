@@ -1,0 +1,57 @@
+{% extends 'wiki/wiki_base.html' %}
+{% load static %}
+
+{% block title %}<title>Resources</title>{% endblock %}
+
+{% block second_column %}
+    {% block second_column_header %}
+    <div class="col-sm-6">
+    {% endblock %}
+        <div class="contentMain">
+	    <div class="navigation">
+		<span class="navigation"><a href="{% url 'index' %}" class="navigation">Resources</a></span> / <span class="navigation"><a href="{% url 'category_detail' topic.category.pk %}">{{topic.category.name}}</a></span> / <span class="navigation">{{topic.name}}</span>
+            </div>
+            <div class="tdTitle" style="margin-bottom: 2px;">
+                <div class="fleft titleHeight" style="line-height: 17px;">{{ topic.name }}</div>
+                <div style="clear: both;"></div>
+            </div>
+            <p>{{ topic.text|safe}}</p>
+
+	    <div style="padding-left: 0px; padding-bottom: 5px;">
+            {% if topic.articles.all %}
+                {% for article in topic.articles.all %}
+                    {% if article.visible %}
+                    <div class="mapTreeCategoryBlock">
+                        <span class="mapTreeCategoryImage"><img src="{% static 'article.gif' %}" alt="document" width="11" height="14"></span>
+                        <span class="mapTreeLinkBlock"><a href="{% url 'article_detail' article.pk %}">{{article.name}}</a></span>
+                    </div>
+                    {% endif %}
+		{% endfor %}
+            {% endif %}
+	    </div>
+	    
+            {% for sub in topic.subtopic_set.all %}
+	    	{% if sub.visible %}
+		    <div style="padding-left: 0px; padding-bottom: 5px;">
+                        <div class="mapTreeCategoryBlock">
+			  <span class="mapTreeCategoryImage"><img src="{% static 'folder.gif' %}" alt="folder" width="15" height="12"></span>
+	                  <span class="mapTreeLinkBlock"><a class="catLink" href="{% url 'subtopic_detail' sub.pk %}">{{sub.name}}</a></span>
+			</div>
+                        {% if sub.articles.all %}
+                            {% for article in sub.articles.all %}
+		                {% if article.visible %}
+				    <div class="mapTreeArticleBlock">
+					<span class="mapTreeArticleImage"><img src="{% static 'article.gif' %}" alt="document" width="11" height="14"></span>
+					<span class="mapTreeLinkBlock"><a href="{% url 'article_detail' article.pk %}">{{article.name}}</a></span>
+			            </div>
+		                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+		    </div>
+                {% endif %}			
+            {% endfor %}
+        </div>
+    </div>
+    {% block second_column_footer %}
+    {% endblock %}
+{% endblock %}

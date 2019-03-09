@@ -25,7 +25,7 @@ SECRET_KEY = '#5p*p=^w-o#=!87!2eajinx8oy3yd-k3j1%j_jp8%t#2qedjp7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
     'research.apps.ResearchConfig',
+    'wiki.apps.WikiConfig',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +123,20 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_BASEPATH = os.path.join(STATIC_ROOT, 'ckeditor/ckeditor')
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'
+CKEDITOR_CONFIGS = {
+    'minutes': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['Bold', 'Italic', 'Underline'],'/',
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['Image','Table','HorizontalRule','Smiley','SpecialChar'],
+            ['RemoveFormat', 'Source']
+        ]
+    },
+}

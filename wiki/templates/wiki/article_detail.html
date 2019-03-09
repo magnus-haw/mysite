@@ -1,0 +1,21 @@
+{% extends 'wiki/wiki_base.html' %}
+{% load static %}
+
+{% block title %}<title>Resources</title>{% endblock %}
+
+{% block second_column %}
+    {% block second_column_header %}
+    <div class="col-sm-6">
+    {% endblock %}
+        <div class="contentMain">
+            <h1>{{ article.name }}</h1>
+	    <div class="date">Author: {{article.author}}</div>
+	    <div class="date">Last updated: {{article.updated}}</div>
+	    <hr>
+            <p>{{ article.text|safe}}</p>
+
+        </div>
+    </div>
+    {% block second_column_footer %}
+    {% endblock %}
+{% endblock %}

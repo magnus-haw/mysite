@@ -1,0 +1,145 @@
+{% extends 'research/base.html' %}
+{% load static %}
+
+{% block title %}<title>Resources</title>{% endblock %}
+
+{% block maphead %}{% endblock %}
+
+{% block headextra %}
+<script>
+$(document).ready(function(){
+    $('img.toggle').click(function () {
+	$(this).parent().next().toggle(200);
+    });
+});
+</script>
+<link rel="stylesheet" type="text/css" href="{% static 'wiki.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% block first_column %}
+        {% block first_column_header %}
+            <div class="col-sm-3">
+            <div class="well">
+	    <div class="dtree">
+                <div class="treenode oTreeNode"><img id="id0" src="{% static 'base.gif' %}" alt="">
+                    <a id="sd0" class="node" href="{% url 'index' %}"><b>Resources</b></a>
+		</div>
+        {% endblock %}
+                <div id="dd0" class="clip" style="display:block;">
+		{% for cat in categories %}
+                    <div class="treenode oTreeNode">
+                    {% if cat.topic_set.all %}
+	    	        {% if forloop.last %}
+    		        <img src="{% static 'plusbottom.gif' %}" alt="" class="toggle">
+		        {% else %}
+		        <img src="{% static 'plus.gif' %}" alt="" class="toggle">
+                        {% endif %}
+	            {% else %}
+                        {% if forloop.last %}
+                        <img src="{% static 'joinbottom.gif' %}" alt="">
+                        {% else %}
+		        <img src="{% static 'join.gif' %}" alt="">
+                        {% endif %}
+		    {% endif %}
+    	    	    <img id="id{{cat.pk}}" src="{% static 'folder.gif' %}" alt="">
+	    	    <a id="sd{{cat.pk}}" class="node" href="{% url 'category_detail' cat.pk %}" title="{{cat.name}}">{{cat.name}}</a>
+                    </div>
+
+
+		    {% if cat.topic_set.all %}
+                    <div id="dd{{cat.pk}}" class="clip" style="display:block;">    	  	
+                    {% for topic in cat.topic_set.all %}
+                        {% if topic.visible %}
+                            <div class="treenode oTreeNode">
+                                {% if forloop.parentloop.last %}
+                                <img src="{% static 'empty.gif' %}" alt="">
+                                {% else %}
+                                <img src="{% static 'line.gif' %}" alt="">
+                                {% endif %}
+                            {% if topic.subtopic_set.all %}
+                                {% if forloop.last %}
+                                <img src="{% static 'plusbottom.gif' %}" alt="" class="toggle">
+                                {% else %}
+                                <img src="{% static 'plus.gif' %}" alt="" class="toggle">
+                                {% endif %}
+                            {% else %}
+                                {% if forloop.last %}
+                                <img src="{% static 'joinbottom.gif' %}" alt="">
+                                {% else %}
+                                <img src="{% static 'join.gif' %}" alt="">
+                                {% endif %}
+                            {% endif %}
+                            <img id="td{{topic.pk}}" src="{% static 'folder.gif' %}" alt="">
+                            <a id="tsd{{topic.pk}}" class="node" href="{% url 'topic_detail' topic.pk %}" title="{{topic.name}}">{{topic.name}}</a>
+                            </div>
+
+                            {% if topic.subtopic_set.all %}
+                            <div id="tdd{{.pk}}" class="clip" style="display:none;">
+                            {% for sub in topic.subtopic_set.all %}
+                                {% if topic.visible %}
+                                <div class="treenode oTreeNode">
+                                    {% if forloop.parentloop.parentloop.last %}
+                                    <img src="{% static 'empty.gif' %}" alt=""><img src="{% static 'empty.gif' %}" alt="">
+                                    {% else %}
+                                    <img src="{% static 'line.gif' %}" alt=""><img src="{% static 'line.gif' %}" alt="">
+                                    {% endif %}
+
+                                    {% if forloop.last %}
+                                    <img src="{% static 'joinbottom.gif' %}" alt="">
+                                    {% else %}
+                                    <img src="{% static 'join.gif' %}" alt="">
+                                    {% endif %}
+
+                                    <img id="td{{sub.pk}}" src="{% static 'folder.gif' %}" alt="">
+                                    <a id="tsd{{sub.pk}}" class="node" href="{% url 'subtopic_detail' sub.pk %}" title="{{sub.name}}">{{sub.name}}</a>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                            {% endif %}
+
+
+                        {% endif %}
+                    {% endfor %}
+		    </div>
+		    {% endif %}
+
+
+                {% endfor %}
+                </div>
+        {% block first_column_footer %}
+	</div>
+        </div>
+        </div>
+        {% endblock %}
+    {% endblock %}
+
+    {% block second_column %}
+
+    {% block second_column_header %}
+        <div class="col-sm-6">
+    {% endblock %}
+    {% block second_column_footer %}
+    </div>
+    {% endblock %}
+
+    {% endblock %}
+
+
+
+    {% block third_column %}
+    {% block third_column_header %}
+        <div class="col-sm-3">
+    {% endblock %}
+    {% block third_column_footer %}
+        </div>
+    {% endblock %}
+
+    {% endblock %}
+
+</div></div>
+
+{% endblock %}

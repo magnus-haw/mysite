@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>Magnus Haw | Publications</title>{% endblock %}
+
+{% block pub-active %}style="color: blue"{% endblock %}
+
+{% block content %}
+
+<hr>
+<div class="row column">
+<a name="publications"></a>
+<h4 style="margin: 0;" class="text-center">PEER REVIEWED PUBLICATIONS</h4>
+</div>
+<hr>
+<div class="row">
+<div class="large-12 columns">
+<article>
+
+{% for article in articles %}
+{% if article.status != 0 %}
+<hr>
+<div class="row">
+  <div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+    {% if article.image %}
+      <p><img src="{{article.image.url}}" alt="{{article.title}}"></p>
+    {% else %}
+      
+    {% endif %}
+  </div>
+
+  <div class="large-10 columns">
+    <a href="{{article.url}}"><h5>{{article.title}}</h5></a>
+    <p>
+    <span><i class="fi-torso"> {% for auth in article.authors.all %} {% if forloop.last %}{{auth.firstname}} {{auth.lastname}}{% else %}{{auth.firstname}} {{auth.lastname}},{% endif %} {% endfor %}</i></span><br>
+      {% if article.status == 2 %}
+      <span><i class="fi-calendar">{{article.journal.abrvname}} ({{article.year}}) {% if article.volume %}Vol. {{article.volume}}, {{article.number}} {% endif %}&nbsp;&nbsp;</i></span>
+      {% elif article.status == 1 %}
+      <span><i class="fi-calendar">Under review</i></span>
+      {% endif %}
+    </p> 
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+<hr>
+<div class="row column">
+<h4 style="margin: 0;" class="text-center">OTHER PUBLICATIONS/TALKS</h4>
+</div>
+<hr>
+<div class="row">
+<div class="large-12 columns">
+
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+	<p><img src="{% static 'images/PA_spectrum.png' %}" alt="hyperfine splitting"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://hdl.handle.net/2429/43353"><h5>Single Color Photoassociation Spectroscopy of 6Li2 and 85Rb2 (Undergraduate Thesis) </h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar">UBC cIRcle repository (2012) &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+	<p><img src="{% static 'images/rocket.png' %}" alt="rocket ignition"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://hdl.handle.net/2429/7905"><h5>A8-3 Model Rocket Impulse Measurement</h5></a>
+<p>
+<span><i class="fi-torso"> M. Haw &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar">UBC cIRcle repository (2009) &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+	<p><img src="{% static 'images/enceladus.jpg'%}"></p>
+</div>
+<div class="large-10 columns">
+<a href="http://adsabs.harvard.edu/abs/2008DPS....40.5804C"><h5>Time of Formation and Chemical Alteration of Small Icy Objects in the Outer Solar System</h5></a>
+<p>
+<span><i class="fi-torso">J. Castillo-Rogez*, M. Haw, S. Vance, D. Matson, T. Johnson &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar">BAAS, (2008) Vol. 40, p.503 &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+<div class="row">
+<div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+<p><img src="{% static 'images/accretion.jpeg' %}"></p>
+</div>
+<div class="large-10 columns">
+<h5>Revised estimate of black hole size using speed of sound in high temperature plasmas</h5>
+<p>
+<span><i class="fi-torso">R. Sivron*, M. Haw, B. Liu, E. Jin &nbsp;&nbsp;</i></span><br>
+<span><i class="fi-calendar"> Mid-American Regional Astrophysics Conference 2008 (MARAC), Kansas City, MO (talk) &nbsp;&nbsp;</i></span>
+</p><!--
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</div>
+</div>
+
+</article>
+</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<footer> 
+<div class="row expanded callout secondary">
+
+<div class="medium-6 columns">
+<ul class="menu align-right">
+<li class="menu-text">Last updated: Mar. 8, 2019</li>
+</ul>
+</div>
+</div>
+</footer>
+{% endblock %}
+

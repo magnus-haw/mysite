@@ -26,6 +26,7 @@ from django.urls import path
 
 urlpatterns += [
     path('', include('research.urls')),
+    path('wiki/',include('wiki.urls')),
 ]
 
 from django.conf import settings

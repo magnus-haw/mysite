@@ -57,7 +57,7 @@ pubStatus = (
 
 class Article(models.Model):
     title = models.CharField(max_length=250)
-    authors = models.ManyToManyField(Person,through='AuthorOrder')
+    authors = models.ManyToManyField(Person,through='AuthorOrder',related_name="paper_authors")
     status = models.IntegerField(choices = pubStatus,default=2)
     journal = models.ForeignKey(Journal,blank=True,null=True,on_delete=models.SET_NULL)
     volume = models.PositiveIntegerField(blank=True,null=True)
