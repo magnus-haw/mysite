@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
-CKEDITOR_BASEPATH = os.path.join(STATIC_ROOT, 'ckeditor/ckeditor')
+#CKEDITOR_BASEPATH = os.path.join(STATIC_ROOT, 'ckeditor/ckeditor/')
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'
 CKEDITOR_CONFIGS = {
