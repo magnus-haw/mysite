@@ -6,6 +6,8 @@
 {% block maphead %}{% endblock %}
 
 {% block headextra %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script>
 $(document).ready(function(){
     $('img.toggle').click(function () {
@@ -19,15 +21,15 @@ $(document).ready(function(){
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        {% block first_column %}
-        {% block first_column_header %}
-            <div class="col-sm-3">
+
+	    
+       {% block first_column_header %}
+            <div class="small-3 columns">
             <div class="well">
 	    <div class="dtree">
                 <div class="treenode oTreeNode"><img id="id0" src="{% static 'base.gif' %}" alt="">
-                    <a id="sd0" class="node" href="{% url 'index' %}"><b>Resources</b></a>
+                    <a id="sd0" class="node" href="{% url 'wiki' %}"><b>Resources</b></a>
 		</div>
-        {% endblock %}
                 <div id="dd0" class="clip" style="display:block;">
 		{% for cat in categories %}
                     <div class="treenode oTreeNode">
@@ -110,34 +112,29 @@ $(document).ready(function(){
 
                 {% endfor %}
                 </div>
-        {% block first_column_footer %}
 	</div>
         </div>
         </div>
-        {% endblock %}
     {% endblock %}
 
     {% block second_column %}
-
+    <div class="small-9 columns">
     {% block second_column_header %}
-        <div class="col-sm-6">
     {% endblock %}
+    
     {% block second_column_footer %}
-    </div>
     {% endblock %}
-
+    </div>
     {% endblock %}
 
 
 
     {% block third_column %}
     {% block third_column_header %}
-        <div class="col-sm-3">
     {% endblock %}
+    
     {% block third_column_footer %}
-        </div>
     {% endblock %}
-
     {% endblock %}
 
 </div></div>

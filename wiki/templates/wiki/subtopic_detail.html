@@ -3,13 +3,10 @@
 
 {% block title %}<title>Resources</title>{% endblock %}
 
-{% block second_column %}
     {% block second_column_header %}
-    <div class="col-sm-6">
-    {% endblock %}
         <div class="contentMain">
 	    <div class="navigation">
-		<span class="navigation"><a href="{% url 'index' %}" class="navigation">Resources</a></span> / <span class="navigation"><a href="{% url 'category_detail' subtopic.topic.category.pk %}">{{subtopic.topic.category.name}}</a></span> / <span class="navigation"><a href="{% url 'topic_detail' subtopic.topic.pk %}">{{subtopic.topic.name}}</a></span> / <span class="navigation">{{subtopic.name}}</span>
+		<span class="navigation"><a href="{% url 'wiki' %}" class="navigation">Resources</a></span> / <span class="navigation"><a href="{% url 'category_detail' subtopic.topic.category.pk %}">{{subtopic.topic.category.name}}</a></span> / <span class="navigation"><a href="{% url 'topic_detail' subtopic.topic.pk %}">{{subtopic.topic.name}}</a></span> / <span class="navigation">{{subtopic.name}}</span>
             </div>
             <div class="tdTitle" style="margin-bottom: 2px;">
                 <div class="fleft titleHeight" style="line-height: 17px;">{{ subtopic.name }}</div>
@@ -31,7 +28,4 @@
 	    </div>
 	    
         </div>
-    </div>
-    {% block second_column_footer %}
     {% endblock %}
-{% endblock %}

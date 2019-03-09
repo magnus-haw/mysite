@@ -37,7 +37,7 @@ def publications(request):
     }
 
     # Render the HTML template publications.html with the data in the context variable
-    return render(request, 'publications.html', context=context)
+    return render(request, 'research/publications.html', context=context)
 
 
 def other(request):
@@ -47,7 +47,7 @@ def other(request):
     }
 
     # Render the HTML template other.html with the data in the context variable
-    return render(request, 'other.html', context=context)
+    return render(request, 'research/other.html', context=context)
 
 def projects(request):
     completedprojects = Project.objects.filter(completed = True)
@@ -58,4 +58,4 @@ def projects(request):
     }
 
     # Render the HTML template other.html with the data in the context variable
-    return render(request, 'projects.html', context=context)
+    return render(request, 'research/projects.html', context=context)
