@@ -27,7 +27,7 @@ def index(request):
     }
 
     # Render the HTML template index.html with the data in the context variable
-    return render(request, 'index.html', context=context)
+    return render(request, 'research/index.html', context=context)
 
 def publications(request):
     articles = Article.objects.all().order_by('-year')
