@@ -10,6 +10,9 @@
             </div>
             <div class="tdTitle" style="margin-bottom: 2px;">
                 <div class="fleft titleHeight" style="line-height: 17px;">{{ subtopic.name }}</div>
+		{% if user.is_staff %}
+                  <div class="titleHeight" style="line-height: 17px; float: right;">(<a href="{% url "admin:wiki_subtopic_change" subtopic.pk %}">Edit</a>)</div>
+                {% endif %}
                 <div style="clear: both;"></div>
             </div>
             <p>{{ subtopic.text|safe}}</p>

@@ -28,7 +28,7 @@ class Category(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
-    articles = GenericRelation(Article)
+    articles = GenericRelation(Article,related_query_name="categories")
     
     def __str__(self):
         return self.name
@@ -43,7 +43,7 @@ class Topic(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
-    articles = GenericRelation(Article)
+    articles = GenericRelation(Article,related_query_name="topics")
     
     def __str__(self):
         return self.name
@@ -55,11 +55,17 @@ class Subtopic(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
-    articles = GenericRelation(Article)
+    articles = GenericRelation(Article,related_query_name="subtopics")
     
     def __str__(self):
         return self.name
 
+class HtmlBlock(models.Model):
+    name = models.CharField(max_length=50)
+    text = RichTextField(config_name='minutes')
+    created = models.DateTimeField(auto_now_add=True)
+    updated= models.DateTimeField(auto_now= True)
+    visible = models.BooleanField(default=True)
 
-
-
+    def __str__(self):
+        return self.name

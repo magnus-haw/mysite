@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 {% load static %}
+
 {% block headextra %}
 {% endblock %}
 
@@ -14,6 +15,8 @@
 
 <style>.fi-social-facebook{color:dodgerblue;font-size:2rem;}.fi-social-youtube{color:red;font-size:2rem;}.fi-social-pinterest{color:darkred;font-size:2rem;}i.fi-social-instagram{color:brown;font-size:2rem;}i.fi-social-tumblr{color:navy;font-size:2rem;}.fi-social-twitter{color:skyblue;font-size:2rem;}</style>
 
+{% block headlast %}
+{% endblock %}
 </head>
 <body>
  
@@ -21,7 +24,7 @@
 
 <header>
  
- 
+{% block menubar %} 
 <div class="top-bar">
 
 <table class="menubar" width="80%" align="center"><tr class="menubar">
@@ -49,6 +52,8 @@
 </tr></table>
 
 </div>
+{% endblock %}
+
 </header>
 
 {% block content %}

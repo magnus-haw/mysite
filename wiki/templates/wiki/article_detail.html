@@ -5,9 +5,25 @@
 
     {% block second_column_header %}
         <div class="contentMain">
+		{% if article.content_type.name == 'subtopic' %}
+		  <div class="navigation">
+			  <span class="navigation"><a href="{% url 'wiki' %}" class="navigation">Resources</a></span> / <span class="navigation"><a href="{% url 'category_detail' article.content_object.topic.category.pk %}">{{article.content_object.topic.category.name}}</a></span> / <span class="navigation"><a href="{% url 'topic_detail' article.content_object.topic.pk %}">{{article.content_object.topic.name}}</a></span> / <span class="navigation"><a href="{% url 'subtopic_detail' article.content_object.pk %}">{{article.content_object.name}}</a> / <span class="navigation">{{article.name}}</span></span>
+                  </div>
+		{% elif article.content_type.name == 'topic' %}
+		  <div class="navigation">
+                          <span class="navigation"><a href="{% url 'wiki' %}" class="navigation">Resources</a></span> / <span class="navigation"><a href="{% url 'category_detail' article.content_object.category.pk %}">{{article.content_object.category.name}}</a></span> / <span class="navigation"><a href="{% url 'topic_detail' article.content_object.pk %}">{{article.content_object.name}}</a></span> / <span class="navigation">{{article.name}}</span></span>
+                  </div>
+		{% elif article.content_type.name == 'category' %}
+		  <div class="navigation">
+                          <span class="navigation"><a href="{% url 'wiki' %}" class="navigation">Resources</a></span> / <span class="navigation"><a href="{% url 'category_detail' article.content_object.pk %}">{{article.content_object.name}}</a></span> / <span class="navigation">{{article.name}}</span></span>
+                  </div>
+		{% endif %}
             <h2>{{ article.name }}</h2>
 	    <div class="date">Author: {{article.author}}</div>
-	    <div class="date">Last updated: {{article.updated}}</div>
+	    <div class="date" style="float: left;">Last updated: {{article.updated}}</div>
+	    {% if user.is_staff %}
+	    <div class="date" style="float: right;">(<a href="{% url "admin:wiki_article_change" article.pk %}">Edit</a>)</div>
+	    {% endif %}
 	    <hr>
             <p>{{ article.text|safe}}</p>
 

@@ -1,12 +1,15 @@
 {% extends 'research/base.html' %}
 {% load static %}
 
-{% block title %}<title>Resources</title>{% endblock %}
+{% block title %}<title>PMM Resources</title>{% endblock %}
 
 {% block maphead %}{% endblock %}
 
 {% block headextra %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async>
+</script>
 
 <script>
 $(document).ready(function(){
@@ -16,6 +19,21 @@ $(document).ready(function(){
 });
 </script>
 <link rel="stylesheet" type="text/css" href="{% static 'wiki.css' %}" />
+{% endblock %}
+
+{% block headlast %}
+<style>
+ul {
+padding-left: 40px;
+}
+ol {
+padding-left: 40px;
+}
+
+</style>
+{% endblock %}
+
+{% block menubar %}
 {% endblock %}
 
 {% block content %}
@@ -28,7 +46,7 @@ $(document).ready(function(){
             <div class="well">
 	    <div class="dtree">
                 <div class="treenode oTreeNode"><img id="id0" src="{% static 'base.gif' %}" alt="">
-                    <a id="sd0" class="node" href="{% url 'wiki' %}"><b>Resources</b></a>
+                    <a id="sd0" class="node" href="{% url 'wiki' %}"><b>PMM Resources</b></a>
 		</div>
                 <div id="dd0" class="clip" style="display:block;">
 		{% for cat in categories %}
@@ -116,6 +134,8 @@ $(document).ready(function(){
         </div>
         </div>
     {% endblock %}
+
+
 
     {% block second_column %}
     <div class="small-9 columns">

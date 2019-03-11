@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
-from .models import Category,Topic,Subtopic,Article
+from .models import Category,Topic,Subtopic,Article,HtmlBlock
 
 # Register your models here.
 
@@ -31,7 +31,11 @@ class ArticleAdmin(admin.ModelAdmin):
     def has_module_permission(self, request):
         return False
 
+class HtmlBlockAdmin(admin.ModelAdmin):
+    list_display=('name','updated','created','visible',)
+    readonly_fields= ['updated', 'created',]
 
+admin.site.register(HtmlBlock,HtmlBlockAdmin)
 admin.site.register(Subtopic,SubtopicAdmin)
 admin.site.register(Topic,TopicAdmin)
 admin.site.register(Article,ArticleAdmin)

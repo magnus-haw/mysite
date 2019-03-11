@@ -15,16 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 
 admin.site.site_header = 'Research Database'
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
-# Use include() to add paths from the catalog application
-from django.urls import include
-from django.urls import path
-
+# Use include() to add paths from the apps
 urlpatterns += [
     path('', include('research.urls')),
     path('wiki/',include('wiki.urls')),
