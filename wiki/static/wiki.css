@@ -1,0 +1,185 @@
+h1, h2, h3, h4, h5, h6 {
+	color: #09005f;
+	font-family : "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref";
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 1.5385em; /* 20px */
+	margin: 0.67em 0 0.5em;
+}
+
+#Main h1 {
+	margin-bottom:0.8em;
+}
+
+h2 {
+	font-size: 1.3846em; /* 18px */
+	margin: 1.6666em 0 0.5em;
+}
+
+h3 {
+	font-size: 1.2308em; /* 16px */
+	margin: 1.875em 0 0.5em;
+}
+
+h4 {
+	font-size: 1em; /* 13px */
+	margin: 2.1428em 0 1em;
+	font-weight: bold;
+}
+
+
+.mapTreeCategoryBlock {
+    padding-bottom: 3px;
+}
+
+.mapTreeArticleBlock {
+    padding-top: 3px;
+    padding-left: 28px;
+}
+
+.mapTreeCategoryImage {
+    padding: 2px 5px;
+    vertical-align: top;
+}
+
+.mapTreeLinkBlock {
+    vertical-align: middle;
+}
+
+.catLink {
+    font-weight: bold;
+}
+
+.mapTreeArticleBlock {
+    padding-top: 3px;
+    padding-left: 28px;
+}
+
+.mapTreeArticleImage {
+    padding: 2px 5px 2px 1px;
+    vertical-align: top;
+}
+
+.tdTitle {
+    background-color: #eaeaea;
+    padding: 4px 4px !important;
+    border-bottom: 1px solid #cfcfcf;
+    font-weight: bold;
+}
+
+.titleHeight {
+    line-height: 17px;
+}
+
+.fleft {
+    float: left;
+}
+
+
+tr:hover {background-color:#f5f5f5;}
+
+div.navigation {
+    padding: 6px;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-bottom: 6px;
+    padding-left: 6px;
+    background: #fff;
+    border: none;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #121212;
+    font-size: 0.9em;
+}
+
+
+.dtree {
+	font-family : Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	color: #666;
+	white-space: nowrap;
+}
+.dtree img {
+	border: 0px;
+	vertical-align: middle;
+}
+.dtree a {
+	color: #004171;
+	text-decoration: none;
+}
+
+/*
+.dtree a:visited {
+	color: #5a6f7f;
+	text-decoration: none;
+}
+*/
+.dtree a.node, .dtree a.nodeSel {
+	white-space: nowrap;
+	padding: 1px 2px 1px 5px;
+}
+
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+	color: #004171;
+	text-decoration: underline;
+}
+
+.dtree a.nodeSel {
+	background-color: #c0d2ec;
+}
+
+.dtree .clip {
+	overflow: hidden;
+}
+
+/* eleontev */
+.treenode {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}
+
+.treeNodeSelected {
+	padding: 1px;
+	background-color: #c0d2ec;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
