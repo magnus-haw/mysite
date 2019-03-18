@@ -11,7 +11,7 @@
             <div class="tdTitle" style="margin-bottom: 2px;">
                 <div class="fleft titleHeight" style="line-height: 17px;">{{ topic.name }}</div>
 		{% if user.is_staff %}
-                  <div class="titleHeight" style="line-height: 17px; float: right;">(<a href="{% url "admin:wiki_topic_change" topic.pk %}">Edit</a>)</div>
+                  <div class="titleHeight" style="line-height: 17px; float: right;">(<a href="{% url "admin:wiki_topic_change" topic.pk %}" target="_blank">Edit</a>)</div>
                 {% endif %}
                 <div style="clear: both;"></div>
             </div>

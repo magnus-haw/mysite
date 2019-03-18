@@ -16,9 +16,13 @@ $(document).ready(function(){
     $('img.toggle').click(function () {
 	$(this).parent().next().toggle(200);
     });
+    $("#toggle-all").click(function(){
+    $(".clip").toggle();
+  });
 });
 </script>
 <link rel="stylesheet" type="text/css" href="{% static 'wiki.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block headlast %}
@@ -45,10 +49,16 @@ padding-left: 40px;
             <div class="small-3 columns">
             <div class="well">
 	    <div class="dtree">
-                <div class="treenode oTreeNode"><img id="id0" src="{% static 'base.gif' %}" alt="">
+		<!--
+	        <form class="search" action="" method="GET" style="margin:auto;max-width:300px">
+                    <input class="searchfield" type="text" placeholder="Search.." name="q">
+		    <button type="submit"><i class="fa fa-search"></i></button>
+		</form> 
+		-->
+		<div class="treenode oTreeNode"><img id="toggle-all" src="{% static 'base.gif' %}" alt="">
                     <a id="sd0" class="node" href="{% url 'wiki' %}"><b>PMM Resources</b></a>
 		</div>
-                <div id="dd0" class="clip" style="display:block;">
+                <div style="display:block;">
 		{% for cat in categories %}
                     <div class="treenode oTreeNode">
                     {% if cat.topic_set.all %}
@@ -70,7 +80,7 @@ padding-left: 40px;
 
 
 		    {% if cat.topic_set.all %}
-                    <div id="dd{{cat.pk}}" class="clip" style="display:block;">    	  	
+                    <div id="dd{{cat.pk}}" class="clip" style="display:none;">    	  	
                     {% for topic in cat.topic_set.all %}
                         {% if topic.visible %}
                             <div class="treenode oTreeNode">
