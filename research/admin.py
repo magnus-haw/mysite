@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Person, Address, AuthorOrder
-from .models import Article, Journal, Project
+from .models import Article, Journal, Project, Page
 
 # Register your models here.
 class AuthorOrderInline(admin.TabularInline):
@@ -30,6 +30,9 @@ class AddressAdmin(admin.ModelAdmin):
 class JournalAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title','journal','year','url')
     inlines = (AuthorOrderInline,)
@@ -42,4 +45,4 @@ admin.site.register(Article,ArticleAdmin)
 admin.site.register(Address,AddressAdmin)
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(Journal,JournalAdmin)
-
+admin.site.register(Page,PageAdmin)

@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 Countries = (
@@ -9,6 +10,7 @@ Countries = (
         (4, 'Germany'),
 )
 
+
 class Address(models.Model):
     title =  models.CharField(max_length=25)
     street=  models.CharField(max_length=25)
@@ -16,6 +18,9 @@ class Address(models.Model):
     state =  models.CharField(max_length=25)
     country= models.IntegerField(choices=Countries,default=0)
     zipcode= models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name_plural = "addresses"
@@ -33,6 +38,7 @@ class Person(models.Model):
     ORCID = models.CharField(blank=True,null=True,max_length=50)
     phone = models.CharField(max_length=15,null=True,blank=True)
     summary=models.TextField(null=True,blank=True)
+    last_modified = models.DateField(auto_now=True)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -41,6 +47,27 @@ class Person(models.Model):
         else:
             return self.firstname +' '+ self.middlename[0]+ '. ' + self.lastname
 
+    class Meta:
+        get_latest_by = 'last_modified'
+
+class Page(models.Model):
+    name = models.CharField(max_length=50,unique=True)
+    person = models.ForeignKey(Person,blank=True,null=True,on_delete=models.SET_NULL)
+    block0 = RichTextField(config_name='minutes',blank=True,null=True)
+    block1 = RichTextField(config_name='minutes',blank=True,null=True)
+    file1 = models.FileField(blank=True,null=True)
+    file2 = models.FileField(blank=True,null=True)
+    file3 = models.FileField(blank=True,null=True)
+    file4 = models.FileField(blank=True,null=True)
+    file5 = models.FileField(blank=True,null=True)
+    last_modified = models.DateField(auto_now=True)
+
+    class Meta:
+        get_latest_by = 'last_modified'
+
+    def __str__(self):
+        return self.name
+
 class Journal(models.Model):
     name =  models.CharField(max_length=50)
     acronym =  models.CharField(max_length=6)
@@ -48,9 +75,13 @@ class Journal(models.Model):
     impactfactor = models.FloatField(blank=True,null=True)
     numreviewers = models.IntegerField(blank=True,null=True)
     summary=models.TextField(null=True,blank=True)
+    last_modified = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        get_latest_by = 'last_modified'
 
 pubStatus = (
         (0,'in preparation'),
@@ -61,6 +92,7 @@ pubStatus = (
 class Article(models.Model):
     title = models.CharField(max_length=250)
     authors = models.ManyToManyField(Person,through='AuthorOrder',related_name="paper_authors")
+    peerreviewed = models.BooleanField(default=True)
     status = models.IntegerField(choices = pubStatus,default=2)
     journal = models.ForeignKey(Journal,blank=True,null=True,on_delete=models.SET_NULL)
     volume = models.PositiveIntegerField(blank=True,null=True)
@@ -73,6 +105,7 @@ class Article(models.Model):
     abstract = models.TextField(null=True,blank=True)
     pdf = models.FileField(null=True,blank=True)
     image = models.ImageField(blank=True,null=True)
+    last_modified = models.DateField(auto_now=True)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -80,6 +113,9 @@ class Article(models.Model):
             return self.title[:25] + '...'
         else:
             return self.title
+
+    class Meta:
+        get_latest_by = 'last_modified'
 
 class AuthorOrder(models.Model):
     person = models.ForeignKey(Person,on_delete=models.CASCADE)
@@ -91,6 +127,10 @@ class Project(models.Model):
     summary = models.TextField(null=True,blank=True)
     image = models.ImageField(blank=True,null=True)
     completed = models.BooleanField(default=False)
+    last_modified = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        get_latest_by = 'last_modified'

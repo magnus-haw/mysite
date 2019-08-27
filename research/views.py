@@ -1,44 +1,37 @@
 from django.shortcuts import render
-from .models import Person, Journal, Article, Project
+from .models import Person, Journal, Article, Project, Page
 
 # Create your views here.
 def index(request):
     """View function for home page of site."""
 
-    # Generate counts of some of the main objects
-    #num_books = Book.objects.all().count()
-    #num_instances = BookInstance.objects.all().count()
-    me = Person.objects.get(firstname='Magnus')
+    page = Page.objects.get(name='home')
+    me = page.person
     address = me.address
+    last_mod = page.last_modified
 
-    # Available books (status = 'a')
-    #num_instances_available = BookInstance.objects.filter(status__exact='a').count()
-    
-    # The 'all()' is implied by default.    
-    #num_authors = Author.objects.count()
-    
     context = {
+         'page':page,
          'me':me,
          'address':address,
-    #    'num_books': num_books,
-    #    'num_instances': num_instances,
-    #    'num_instances_available': num_instances_available,
-    #    'num_authors': num_authors,
+         'last_mod':last_mod,
     }
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'research/index.html', context=context)
 
 def publications(request):
-    articles = Article.objects.all().order_by('-year')
-
+    others = Article.objects.filter(peerreviewed = False)
+    articles = Article.objects.filter(peerreviewed = True).order_by('-year')
+    last = Article.objects.latest()
     context = {
             'articles':articles,
+            'others':others,
+            'last_mod':last.last_modified,
     }
 
     # Render the HTML template publications.html with the data in the context variable
     return render(request, 'research/publications.html', context=context)
-
 
 def other(request):
 
@@ -52,9 +45,12 @@ def other(request):
 def projects(request):
     completedprojects = Project.objects.filter(completed = True)
     projects = Project.objects.filter(completed = False)
+    last = Project.objects.latest()
+
     context = {
             'projects':projects,
             'completedprojects':completedprojects,
+            'last_mod':last.last_modified,
     }
 
     # Render the HTML template other.html with the data in the context variable

@@ -52,7 +52,32 @@
 <div class="row">
 <div class="large-12 columns">
 
+{% for article in others %}
+{% if article.status != 0 %}
+<div class="row">
+  <div class="large-2 columns  hide-for-medium-only hide-for-small-only">
+    {% if article.image %}
+      <p><img src="{{article.image.url}}" alt="{{article.title}}"></p>
+    {% else %}
 
+    {% endif %}
+  </div>
+
+  <div class="large-10 columns">
+    <a href="{{article.url}}"><h5>{{article.title}}</h5></a>
+    <p>
+    <span><i class="fi-torso"> {% for auth in article.authors.all %} {% if forloop.last %}{{auth.firstname}} {{auth.lastname}}{% else %}{{auth.firstname}} {{auth.lastname}},{% endif %} {% endfor %}</i></span><br>
+      {% if article.status == 2 %}
+      <span><i class="fi-calendar">{{article.journal.abrvname}} ({{article.year}}) {% if article.volume %}Vol. {{article.volume}}, {{article.number}} {% endif %}&nbsp;&nbsp;</i></span>
+      {% elif article.status == 1 %}
+      <span><i class="fi-calendar">Under review</i></span>
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+<!--
 <div class="row">
 <div class="large-2 columns  hide-for-medium-only hide-for-small-only">
 	<p><img src="{% static 'images/PA_spectrum.png' %}" alt="hyperfine splitting"></p>
@@ -62,8 +87,7 @@
 <p>
 <span><i class="fi-torso"> M. Haw &nbsp;&nbsp;</i></span><br>
 <span><i class="fi-calendar">UBC cIRcle repository (2012) &nbsp;&nbsp;</i></span>
-</p><!--
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</p>
 </div>
 </div>
 
@@ -76,8 +100,7 @@
 <p>
 <span><i class="fi-torso"> M. Haw &nbsp;&nbsp;</i></span><br>
 <span><i class="fi-calendar">UBC cIRcle repository (2009) &nbsp;&nbsp;</i></span>
-</p><!--
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</p>
 </div>
 </div>
 
@@ -90,8 +113,7 @@
 <p>
 <span><i class="fi-torso">J. Castillo-Rogez*, M. Haw, S. Vance, D. Matson, T. Johnson &nbsp;&nbsp;</i></span><br>
 <span><i class="fi-calendar">BAAS, (2008) Vol. 40, p.503 &nbsp;&nbsp;</i></span>
-</p><!--
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</p>
 </div>
 </div>
 
@@ -104,10 +126,10 @@
 <p>
 <span><i class="fi-torso">R. Sivron*, M. Haw, B. Liu, E. Jin &nbsp;&nbsp;</i></span><br>
 <span><i class="fi-calendar"> Mid-American Regional Astrophysics Conference 2008 (MARAC), Kansas City, MO (talk) &nbsp;&nbsp;</i></span>
-</p><!--
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.</p> -->
+</p>
 </div>
 </div>
+-->
 
 </article>
 </div>
@@ -121,7 +143,7 @@
 
 <div class="medium-6 columns">
 <ul class="menu align-right">
-<li class="menu-text">Last updated: Mar. 8, 2019</li>
+	<li class="menu-text">Last updated: {{last_mod}}</li>
 </ul>
 </div>
 </div>
