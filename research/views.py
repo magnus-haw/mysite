@@ -21,7 +21,7 @@ def index(request):
     return render(request, 'research/index.html', context=context)
 
 def publications(request):
-    others = Article.objects.filter(peerreviewed = False)
+    others = Article.objects.filter(peerreviewed = False).order_by('-year')
     articles = Article.objects.filter(peerreviewed = True).order_by('-year')
     last = Article.objects.latest()
     context = {
