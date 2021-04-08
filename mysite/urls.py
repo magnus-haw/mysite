@@ -27,6 +27,7 @@ urlpatterns = [
 urlpatterns += [
     path('', include('research.urls')),
     path('wiki/',include('wiki.urls')),
+    path('legislation/',include('legislation.urls')),
 ]
 
 from django.conf import settings

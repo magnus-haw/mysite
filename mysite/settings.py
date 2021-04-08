@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'research.apps.ResearchConfig',
     'wiki.apps.WikiConfig',
+    'legislation.apps.LegislationConfig',
     'ckeditor',
 ]
 
