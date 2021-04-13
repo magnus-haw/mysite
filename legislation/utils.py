@@ -3,6 +3,19 @@
 import requests
 from bs4 import BeautifulSoup
 from dateutil import parser
+from django_cron import CronJobBase, Schedule
+from .models import Agenda, Hearing, Bill
+
+
+def saveAgenda(sorted_agendas, house):
+    ag = Agenda(house=house)
+    ag.save()
+    for hr in sorted_agendas:
+        myhearing = Hearing(name=hr['name'], date=hr['date'], time=hr['time'], location=hr['location'], link=hr['link'], agenda=ag)
+        myhearing.save()
+        for bill in hr['bills']:
+            mybill = Bill(title=bill['title'], author=bill['author'], description=bill['description'], link=bill['link'], hearing=myhearing)
+            mybill.save()
 
 def getSenateCommitteeLinks(URL = "https://www.senate.ca.gov/committees"):
     cpage = requests.get(URL)
@@ -55,6 +68,7 @@ def getFullSenateAgenda():
         scom_agenda = getSenateCommitteeAgenda(soup, URL)
         agendas += scom_agenda
     sorted_agendas = sorted(agendas, key = lambda item:item.get('date'))
+    saveAgenda(sorted_agendas, 1)
     return sorted_agendas
 
 def getAssemblyCommitteeLinks(URL = "https://www.assembly.ca.gov/committees"):
@@ -112,4 +126,19 @@ def getFullAssemblyAgenda():
         ascom_agenda = getAssemblyCommitteeAgenda(soup,URL)
         agendas += ascom_agenda
         sorted_agendas = sorted(agendas, key = lambda item:item.get('date'))
+    saveAgenda(sorted_agendas,2)
     return sorted_agendas
+
+
+
+class MyCronJob(CronJobBase):
+    RUN_EVERY_MINS = 5 # every 8 hours
+
+    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
+    code = 'legislation.my_cron_job'    # a unique code
+
+    def do(self):
+        getFullAssemblyAgenda()
+        getFullSenateAgenda()
+
+            

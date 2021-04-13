@@ -3,40 +3,35 @@ import pickle
 from django.db import models
 from django.conf import settings
 
-# Create your models here.
-# class AssemblyAgenda(models.Model):
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     last_modified = models.DateTimeField(auto_now=True)
+#Create your models here.
 
-#     def __str__(self):
-#         return self.last_modified
+HOUSES = [(1,'Senate'), (2,'Assembly')]
 
-#     def update_agenda(self): 
-#         path = os.path.join(settings.STATIC_ROOT, self.filename)
-#         return pickle.load(open(path,'rb'))
+class Agenda(models.Model):
+    house = models.PositiveSmallIntegerField(choices=HOUSES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
-# class AssemblyHearing(models.Model):
-#     name = 
-#     date = models.DateTimeField()
-#     time = 
-#     link = 
+    def __str__(self):
+        return str(self.last_modified)
 
-# class AssemblyBill(models.Model):
-#     pass
+class Hearing(models.Model):
+    name = models.CharField(max_length=100)
+    date = models.DateField()
+    time = models.CharField(max_length=100)
+    location = models.CharField(max_length=200)
+    link = models.URLField()
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
 
-# class SenateAgenda(models.Model):
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     last_modified = models.DateTimeField(auto_now=True)
-#     filename = models.CharField(default="senate-agenda.pk", max_length=50)
+    def __str__(self):
+        return self.name + " " + self.date
 
-#     def __str__(self):
-#         return self.filename
+class Bill(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    link = models.URLField()
+    hearing = models.ForeignKey(Hearing, on_delete=models.CASCADE)
 
-#     def loadfile(self): 
-#         path = os.path.join(settings.STATIC_ROOT, self.filename)
-#         return pickle.load(path)
-    
-#     def savefile(self,myobj):
-#         path = os.path.join(settings.STATIC_ROOT, self.filename)
-#         pickle.dump(myobj,open(path,'wb'))
-#         return
+    def __str__(self):
+        return self.title

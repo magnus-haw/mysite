@@ -28,7 +28,7 @@
               <th style='font-weight: bold'>Summary</th>
             </tr>
             
-            {% for hearing in agenda %}
+            {% for hearing in agenda.hearing_set.all %}
                 <tr>
                   <th style='font-weight: bold'>
                     <a href="{{hearing.link}}">{{hearing.name}}</a>
@@ -41,7 +41,7 @@
                   <td></td>
                   <td></td>
                 </tr>
-                {% for bill in hearing.bills %}
+                {% for bill in hearing.bill_set.all %}
                 <tr>
                     <td></td>
                     <th style='font-weight: bold'>

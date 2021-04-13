@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'wiki.apps.WikiConfig',
     'legislation.apps.LegislationConfig',
     'ckeditor',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CRON_CLASSES = [
+    "legislation.utils.MyCronJob",
+    # ...
 ]
 
 ROOT_URLCONF = 'mysite.urls'
