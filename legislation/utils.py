@@ -132,7 +132,7 @@ def getFullAssemblyAgenda():
 
 
 class MyCronJob(CronJobBase):
-    RUN_EVERY_MINS = 5 # every 8 hours
+    RUN_EVERY_MINS = 480 # every 8 hours
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'legislation.my_cron_job'    # a unique code
