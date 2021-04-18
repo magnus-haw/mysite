@@ -4,11 +4,11 @@ import requests
 from bs4 import BeautifulSoup
 from dateutil import parser
 from django_cron import CronJobBase, Schedule
-from .models import Agenda, Hearing, Bill
+from .models import Session, Hearing, Bill
 
 
 def saveAgenda(sorted_agendas, house):
-    ag = Agenda(house=house)
+    ag = Session(house=house)
     ag.save()
     for hr in sorted_agendas:
         myhearing = Hearing(name=hr['name'], date=hr['date'], time=hr['time'], location=hr['location'], link=hr['link'], agenda=ag)

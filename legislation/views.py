@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from datetime import timedelta
 from django.utils import timezone
-from .utils import getFullAssemblyAgenda, getFullSenateAgenda, saveAgenda
-from .models import Agenda
+#from .utils import getFullAssemblyAgenda, getFullSenateAgenda, saveAgenda
+from .models import Session
 
 # Create your views here.
 
@@ -19,7 +19,7 @@ def index(request):
 def senate(request):
     """View function for home page of site."""
     #senate = getFullSenateAgenda()
-    search = Agenda.objects.filter(house=1)
+    search = Session.objects.filter(house=1)
     print(search)
     if len(search) > 0:
         agenda = search.latest('created_at')
