@@ -1,0 +1,112 @@
+{% extends "legislation/base.html" %}
+
+{% block maincontainer %}
+  <div class="container-fluid">
+{% endblock %}
+
+{% block content %}
+
+<!-- Title -->
+<h1 class="mt-4 mb-3">{{agenda.house}} Agenda</h1>
+<div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-12">
+
+        <!-- Variable Properties -->
+	
+        <div class="card mb-4">
+          <h5 class="card-header">{{agenda.house}} Agenda</h5>
+          <div class="card-body" id="varprops">
+            <table class="simple-table" style="font-size: 12px;">
+            <tr>
+              <th style='font-weight: bold'>Hearing</th>
+              <th style='font-weight: bold'>Bill #</th>
+              <th style='font-weight: bold'>Author</th>
+              <th style='font-weight: bold'>Stance</th>
+              <th style='font-weight: bold'>Effort</th>
+              <th style='font-weight: bold'>Sector</th>
+              <th style='font-weight: bold'>Strategy</th>
+              <th style='font-weight: bold'>Letter</th>
+              <th style='font-weight: bold'>Amendments</th>
+              <th style='font-weight: bold'>Comments</th>
+              <th style='font-weight: bold'>Files</th>
+            </tr>
+            
+            {% for hearing in agenda.hearing_set.all %}
+                {% if hearing.bills.all %}
+                <tr>
+                  <th style='font-weight: bold'>
+                    <a href="{{hearing.link}}">{{hearing.committee.name}}</a><br>
+                    {{hearing.date|date:'l, F j, Y'}} {{hearing.time}}<br>
+                    {{hearing.location}}<br>
+                    {% if user.is_staff %}<a href="{% url 'admin:legislation_hearing_change' hearing.id %}">Edit</a>{% endif %}                
+                  </th>
+                  <th>Letters due: {{hearing.letter_due_date}}<br><br>{% if not hearing.letter_date_confirmed %} Not {% endif %}confirmed</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                {% for bill in hearing.bills.all %}
+                <tr>
+                    <td>{{bill.description}}</td>
+                    <th style='font-weight: bold'>
+                      <a href="{{bill.link}}">{{bill.name}}</a> &nbsp; {% if user.is_staff %}<a href="{% url 'admin:legislation_bill_change' bill.id %}">Edit</a>{% endif %} 
+                    </th>
+                    <td>{{bill.author}}</td>
+                    <td>{{bill.get_stance_display}}</td>
+                    <td>{{bill.get_effort_display}}</td>
+                    <td>{{bill.sector.name}}</td>
+                    <td>{{bill.strategy}}</td>
+                    <td>
+                        {% for letter in bill.supportletter_set.all %}
+                          {{letter.get_status_display}}
+                          {% for vol in letter.volunteers.all %}
+                            <br>{{vol.name}}
+                          {% endfor %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for amd in bill.billamendment_set.all %}
+                        {% if user.is_staff %}
+                          <a href="{% url 'admin:legislation_billamendment_change' amd.id %}">{{amd.date|date:'l, F j, Y'}}</a>
+                        {% else %}
+                          {{amd.date|date:'l, F j, Y'}}
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{bill.notes}}</td>
+                    <td>
+                    {% for file in bill.fileattachment_set.all %}
+                      <a href={{file.file.url}}>{{file.name}}</a>  
+                    {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td></td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+            
+            </table>
+          </div>
+          <!--
+          <div class="card-footer text-muted">
+            Last modified: {{varprop.last_modified}}
+          </div>
+          -->
+        </div> <!-- /.card -->
+	
+        <hr>
+      </div> <!-- /.col -->
+
+    </div>
+    <!-- /.row -->
+{% endblock %}

@@ -4,18 +4,38 @@ import requests
 from bs4 import BeautifulSoup
 from dateutil import parser
 from django_cron import CronJobBase, Schedule
-from .models import Session, Hearing, Bill
-
+from .models import Session, Hearing, Bill, Committee
+from datetime import timedelta
+from django.utils import timezone
 
 def saveAgenda(sorted_agendas, house):
-    ag = Session(house=house)
-    ag.save()
+    billstxt = "A.B. 1035,A.B. 1069,A.B. 1087,A.B. 11,A.B. 1110,A.B. 1124,A.B. 1139,A.B. 1147,A.B. 1161,A.B. 117,A.B. 1177,A.B. 1201,A.B. 1218,A.B. 1238,A.B. 125,A.B. 1260,A.B. 1270,A.B. 1276,A.B. 1289,A.B. 1312 ,A.B. 1317,A.B. 1325,A.B. 1346,A.B. 1365,A.B. 1384,A.B. 1389,A.B. 1395,A.B. 1397,A.B. 1401,A.B. 1453,A.B. 1500,A.B. 1559,A.B. 20,A.B. 220,A.B. 222,A.B. 284,A.B. 322,A.B. 33,A.B. 352,A.B. 353,A.B. 37,A.B. 39,A.B. 427,A.B. 43,A.B. 467,A.B. 478,A.B. 5,A.B. 50,A.B. 51,A.B. 52,A.B. 525,A.B. 53,A.B. 55,A.B. 558,A.B. 564,A.B. 585,A.B. 64,A.B. 648,A.B. 67,A.B. 680,A.B. 683,A.B. 699,A.B. 713,A.B. 72,A.B. 745,A.B. 766,A.B. 776,A.B. 802,A.B. 818,A.B. 842,A.B. 843,A.B. 881,A.B. 896,A.B. 897,A.B. 906,A.B. 96,A.B. 962,A.B. 965,A.B. 992,AJR-4,S.B. 1,S.B. 18,S.B. 204,S.B. 25,S.B. 260,S.B. 261,S.B. 27,S.B. 29,S.B. 30,S.B. 31,S.B. 32,S.B. 339,S.B. 342,S.B. 343,S.B. 345,S.B. 359,S.B. 372,S.B. 38,S.B. 406,S.B. 413,S.B. 416,S.B. 419,S.B. 423,S.B. 429,S.B. 437,S.B. 439,S.B. 439,S.B. 44,S.B. 449,S.B. 45,S.B. 467,S.B. 47,S.B. 474,S.B. 475,S.B. 479,S.B. 500,S.B. 506,S.B. 527,S.B. 529,S.B. 533,S.B. 54,S.B. 542,S.B. 551,S.B. 560,S.B. 580,S.B. 582,S.B. 589,S.B. 595,S.B. 596,S.B. 599,S.B. 612,S.B. 617,S.B. 643,S.B. 66,S.B. 662,S.B. 67,S.B. 671,S.B. 68,S.B. 726,S.B. 730,S.B. 733,S.B. 771,S.B. 83,S.B. 84,S.B. 99,A.B. 1177"
+    follows = billstxt.split(',')
+    session, session_created = Session.objects.get_or_create(house=house,year_start=timezone.now().year,year_end=timezone.now().year+1)
     for hr in sorted_agendas:
-        myhearing = Hearing(name=hr['name'], date=hr['date'], time=hr['time'], location=hr['location'], link=hr['link'], agenda=ag)
+        committee, com_created = Committee.objects.get_or_create(name = hr['name'])
+        if com_created:
+            committee.link = hr['link']
+            committee.save()
+
+        myhearing, hearing_created = Hearing.objects.get_or_create(date=hr['date'], session = session, committee=committee)
+        if hearing_created:
+            myhearing.letter_due_date = hr['date'] - timedelta(days=7)
+            myhearing.link=hr['link']
+        myhearing.time=hr['time']
+        myhearing.location=hr['location']
         myhearing.save()
+        
         for bill in hr['bills']:
-            mybill = Bill(title=bill['title'], author=bill['author'], description=bill['description'], link=bill['link'], hearing=myhearing)
-            mybill.save()
+            if bill['title'] in follows:
+                mybill, bill_created = Bill.objects.get_or_create(name=bill['title'],session = session)
+                if bill_created:
+                    mybill.number = int(bill['title'].split(' ')[-1])
+                    mybill.author=bill['author']
+                    mybill.description=bill['description']
+                    mybill.link=bill['link']
+                    mybill.save()
+                myhearing.bills.add(mybill)
 
 def getSenateCommitteeLinks(URL = "https://www.senate.ca.gov/committees"):
     cpage = requests.get(URL)
@@ -68,7 +88,7 @@ def getFullSenateAgenda():
         scom_agenda = getSenateCommitteeAgenda(soup, URL)
         agendas += scom_agenda
     sorted_agendas = sorted(agendas, key = lambda item:item.get('date'))
-    saveAgenda(sorted_agendas, 1)
+    saveAgenda(sorted_agendas, "Senate")
     return sorted_agendas
 
 def getAssemblyCommitteeLinks(URL = "https://www.assembly.ca.gov/committees"):
@@ -126,7 +146,7 @@ def getFullAssemblyAgenda():
         ascom_agenda = getAssemblyCommitteeAgenda(soup,URL)
         agendas += ascom_agenda
         sorted_agendas = sorted(agendas, key = lambda item:item.get('date'))
-    saveAgenda(sorted_agendas,2)
+    saveAgenda(sorted_agendas,"Assembly")
     return sorted_agendas
 
 
