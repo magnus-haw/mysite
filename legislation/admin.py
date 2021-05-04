@@ -53,7 +53,7 @@ class BillAmendmentAdmin(admin.ModelAdmin):
     list_filter = ['importance','last_modified',]
     search_fields = ['bill','date','description','importance','last_modified']
 
-admin.site.register(BillAmendment, BillAmendmentAdmin)
+#admin.site.register(BillAmendment, BillAmendmentAdmin)
 admin.site.register(Hearing, HearingAdmin)
 admin.site.register(Committee, CommitteeAdmin)
 admin.site.register(Bill, BillAdmin)
