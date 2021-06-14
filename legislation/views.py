@@ -27,9 +27,10 @@ def senate(request):
         sorted_agendas = getFullSenateAgenda()
         saveAgenda(sorted_agendas, 'Senate')
         agenda = Session.objects.filter(house='Senate').latest('created_at')
-
+    hearings = agenda.hearing_set.filter(date__gte=timezone.now() )
     context = {
          'agenda':agenda,
+         'hearings':hearings,
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -45,9 +46,10 @@ def assembly(request):
         sorted_agendas = getFullAssemblyAgenda()
         saveAgenda(sorted_agendas, 'Assembly')
         agenda = Agenda.objects.filter(house='Assembly').latest('created_at')
-    
+    hearings = agenda.hearing_set.filter(date__gte=timezone.now() )    
     context = {
          'agenda':agenda,
+         'hearings':hearings,
     }
 
     # Render the HTML template index.html with the data in the context variable

@@ -60,7 +60,7 @@ class Bill(BaseModel):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     description = models.CharField(max_length=200, null=True, blank=True,)
     strategy = models.CharField(max_length=200, null=True, blank=True,)
-    comments = models.TextField(null=True, blank=True,)
+    comments = models.TextField(null=True, blank=True)
 
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
     mitigation = models.BooleanField(null = True, blank=True)
