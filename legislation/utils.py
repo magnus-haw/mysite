@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from dateutil import parser
 from django_cron import CronJobBase, Schedule
-from .models import Session, Hearing, Bill, Committee
+from .models import Legislator, Session, Hearing, Bill, Committee
 from datetime import timedelta
 from django.utils import timezone
 
@@ -43,6 +43,46 @@ def getSenateCommitteeLinks(URL = "https://www.senate.ca.gov/committees"):
     clinks = csoup.find('div',id='block-views-committees-standing').find('div','view-content').find_all('a')
     committees = [{'link':link['href'], 'Name':link.string} for link in clinks]
     return committees
+
+def parseSenateRosterRow(row):
+    ntitle = row.find('div', 'views-field-field-senator-last-name').find('h3').string
+    nsplit = ntitle.split('(')
+    name = nsplit[0].strip()
+    if nsplit[1] =='D)':
+        party = 'Democrat'
+    elif nsplit[1] =='R)':
+        party = 'Republican'
+    else:
+        party = 'Independent'
+
+    district_div = row.find('div', 'views-field-field-senator-district').find('div', 'field-content')
+    rm_span = district_div.find('span'); rm_span.extract()
+    district = int(district_div.string.strip())
+
+    webpage = row.find('div', 'views-field-field-senator-weburl').find('a')['href']
+    contact = row.find('div', 'views-field-field-senator-feedbackurl').find('a')['href']
+
+    capitol_office = row.find('div', 'views-field-field-senator-capitol-office').find_all('p')[-1]
+    rm_br = capitol_office.find_all('br'); [br.extract() for br in rm_br]
+    district_office = row.find('div', 'views-field-field-senator-district-office').find_all('p')[-1]
+    rm_br = district_office.find_all('br'); [br.extract() for br in rm_br]
+
+    senator_dict = {'name':name,'party':party, 'district':district, 'webpage':webpage, 'contact':contact,
+            'capitol_office':capitol_office.text, 'district_office':district_office.text}
+    print(senator_dict)
+    senator, _created = Legislator.objects.get_or_create(name=name, party=party, district=district, webpage=webpage, contact=contact,
+                                                         capitol_office=capitol_office.text, district_office=district_office.text)
+    
+    return senator_dict
+
+def getSenateRoster(URL = "https://www.senate.ca.gov/senators"):
+    cpage = requests.get(URL)
+    csoup = BeautifulSoup(cpage.content,'lxml')
+    rows = csoup.find('div',id="block-views-senator-roster-block").find('div','view-content').find_all('div',"views-row")
+
+    senators = [parseSenateRosterRow(row) for row in rows]
+
+    return senators
 
 def parseSenateMeasureRow(row):
     link = row.find('a')['href']
@@ -148,7 +188,6 @@ def getFullAssemblyAgenda():
         sorted_agendas = sorted(agendas, key = lambda item:item.get('date'))
     saveAgenda(sorted_agendas,"Assembly")
     return sorted_agendas
-
 
 
 class MyCronJob(CronJobBase):

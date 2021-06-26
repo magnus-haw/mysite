@@ -41,7 +41,8 @@
                     {{hearing.location}}<br>
                     {% if user.is_staff %}<a href="{% url 'admin:legislation_hearing_change' hearing.id %}">Edit</a>{% endif %}                
                   </th>
-                  <th>Letters due: {{hearing.letter_due_date}}<br><br>{% if not hearing.letter_date_confirmed %} Not {% endif %}confirmed</th>
+                  <th>Letters due: {{hearing.letter_due_date}}<br><br>{% if not hearing.letter_date_confirmed %} Not {% endif %}confirmed
+                    {% if user.is_staff %}<a href="{% url 'admin:legislation_hearing_change' hearing.id %}">Edit</a>{% endif %}</th>
                   <td></td>
                   <td></td>
                   <td></td>

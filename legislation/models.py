@@ -41,6 +41,22 @@ class Session(BaseModel):
     def __str__(self):
         return str(self.state+ " ")+str(self.house)+str(self.year_start)
 
+class Legislator(BaseModel):
+    PARTY = [('Democrat','Democrat'), ('Republican','Republican')]
+    name = models.CharField(max_length=100)
+    alternate_name = models.CharField(max_length=100, null=True, blank=True)
+    district = models.PositiveIntegerField()
+    webpage = models.URLField(null=True, blank=True)
+    contact = models.URLField(null=True, blank=True)
+    party = models.CharField(max_length=25, choices=PARTY, null=True, blank=True)
+    
+    capitol_office = models.CharField(max_length=200, null=True)
+    district_office = models.CharField(max_length=1000, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Sector(BaseModel):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
