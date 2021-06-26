@@ -32,8 +32,8 @@
               <th style='font-weight: bold'>Files</th>
             </tr>
             
-            {% for hearing in agenda.hearing_set.all %}
-                {% if hearing.bills.all %}
+            {% for hearing in hearings %}
+	      {% if hearing.bills.all %}
                 <tr>
                   <th style='font-weight: bold'>
                     <a href="{{hearing.link}}">{{hearing.committee.name}}</a><br>
@@ -81,7 +81,7 @@
                         {% endif %}
                         {% endfor %}
                     </td>
-                    <td>{{bill.notes}}</td>
+                    <td>{{bill.comments}}</td>
                     <td>
                     {% for file in bill.fileattachment_set.all %}
                       <a href={{file.file.url}}>{{file.name}}</a>  
