@@ -1,5 +1,7 @@
 {% extends "legislation/base.html" %}
 
+{% block billmenu %}active{% endblock %}
+
 {% block maincontainer %}
   <div class="container-fluid">
 {% endblock %}
@@ -7,7 +9,7 @@
 {% block content %}
 
 <!-- Title -->
-<h1 class="mt-4 mb-3">{{agenda.house}} Agenda</h1>
+<h1 class="mt-4 mb-3">Bill List</h1>
 <div class="row">
 
     <!-- Post Content Column -->
@@ -15,12 +17,12 @@
 
       <!-- Variable Properties -->
       <div class="card mb-4">
-          <h5 class="card-header">{{agenda.house}} Agenda</h5>
+          <h5 class="card-header">All Bills</h5>
           <div class="card-body" id="varprops">
             <table class="simple-table" style="font-size: 12px;">
             <tr>
-              <th style='font-weight: bold'>Hearing</th>
-              <th style='font-weight: bold'>Bill #</th>
+              <th style='font-weight: bold'>Title</th>
+	      <th style='font-weight: bold'>Bill #</th>
               <th style='font-weight: bold'>Author</th>
               <th style='font-weight: bold'>Stance</th>
               <th style='font-weight: bold'>Effort</th>
@@ -32,27 +34,7 @@
               <th style='font-weight: bold'>Files</th>
             </tr>
             
-            {% for hearing in hearings %}
-	      {% if hearing.bills.all %}
-                <tr>
-                  <th style='font-weight: bold'>
-                    <a href="{{hearing.link}}">{{hearing.committee.name}}</a><br>
-                    {{hearing.date|date:'l, F j, Y'}} {{hearing.time}}<br>
-                    {{hearing.location}}<br>
-                    {% if user.is_staff %}<a href="{% url 'admin:legislation_hearing_change' hearing.id %}">Edit</a>{% endif %}                
-                  </th>
-                  <th>Letters due: {{hearing.letter_due_date}}<br><br>{% if not hearing.letter_date_confirmed %} Not {% endif %}confirmed</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                {% for bill in hearing.bills.all %}
+                {% for bill in bills %}
                 <tr>
                     <td>{{bill.description}}</td>
                     <th style='font-weight: bold'>
@@ -97,11 +79,6 @@
                     </td>
                 </tr>
                 {% endfor %}
-                <tr>
-                  <td></td>
-                </tr>
-                {% endif %}
-              {% endfor %}
             
             </table>
           </div>

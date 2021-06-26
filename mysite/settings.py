@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'legislation.apps.LegislationConfig',
     'ckeditor',
     'django_cron',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [

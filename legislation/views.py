@@ -2,7 +2,7 @@ from django.shortcuts import render
 from datetime import timedelta
 from django.utils import timezone
 from .utils import getFullAssemblyAgenda, getFullSenateAgenda, saveAgenda
-from .models import Session
+from .models import Session, Bill
 
 # Create your views here.
 
@@ -15,6 +15,16 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'legislation/index.html', context=context)
+
+def bill_list(request):
+    """View function for home page of site."""
+    bills = Bill.objects.all()
+    context = {
+         'bills':bills,
+    }
+
+    # Render the HTML template index.html with the data in the context variable
+    return render(request, 'legislation/bill_list.html', context=context)
 
 def senate(request):
     """View function for home page of site."""

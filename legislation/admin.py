@@ -29,13 +29,13 @@ class FileAttachmentInline(admin.TabularInline):
     model = FileAttachment
     extra = 0
 
-class SupportLetterInline(admin.TabularInline):
+class SupportLetterInline(admin.StackedInline):
     model = SupportLetter
     extra = 0
 
 class BillAdmin(admin.ModelAdmin):
     list_display =('name','author','sector','mitigation','adaptation', 'stance','effort','description', 'last_modified')
-    search_fields = ['name','author','description', 'sector','mitigation','adaptation', 'stance','effort','strategy', 'comments']
+    search_fields = ['name','author','description', 'sector__name','mitigation','adaptation', 'stance','effort','strategy', 'comments']
     list_filter = ['sector','stance','last_modified']
     inlines = (BillAmendmentInline,SupportLetterInline,FileAttachmentInline,)
 
