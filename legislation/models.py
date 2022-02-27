@@ -102,7 +102,8 @@ class FileAttachment(BaseModel):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
-    file = models.FileField()
+    file = models.FileField(null=True, blank=True)
+    url = models.URLField(max_length=500, null= True, blank=True)
 
     def __str__(self):
         return self.name
@@ -139,6 +140,7 @@ class SupportLetter(BaseModel):
     volunteers = models.ManyToManyField(Person, blank=True)
     text = models.TextField(blank=True, null=True)
     file = models.FileField(null=True, blank=True)
+    file_url = models.URLField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return str(self.bill.name + " ") + str(self.hearing.date)
