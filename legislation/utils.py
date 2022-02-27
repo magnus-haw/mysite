@@ -7,6 +7,8 @@ from django_cron import CronJobBase, Schedule
 from .models import Legislator, Session, Hearing, Bill, Committee
 from datetime import timedelta
 from django.utils import timezone
+import pandas as pd
+from re import findall
 
 def saveAgenda(sorted_agendas, house):
     billstxt = "A.B. 1035,A.B. 1069,A.B. 1087,A.B. 11,A.B. 1110,A.B. 1124,A.B. 1139,A.B. 1147,A.B. 1161,A.B. 117,A.B. 1177,A.B. 1201,A.B. 1218,A.B. 1238,A.B. 125,A.B. 1260,A.B. 1270,A.B. 1276,A.B. 1289,A.B. 1312 ,A.B. 1317,A.B. 1325,A.B. 1346,A.B. 1365,A.B. 1384,A.B. 1389,A.B. 1395,A.B. 1397,A.B. 1401,A.B. 1453,A.B. 1500,A.B. 1559,A.B. 20,A.B. 220,A.B. 222,A.B. 284,A.B. 322,A.B. 33,A.B. 352,A.B. 353,A.B. 37,A.B. 39,A.B. 427,A.B. 43,A.B. 467,A.B. 478,A.B. 5,A.B. 50,A.B. 51,A.B. 52,A.B. 525,A.B. 53,A.B. 55,A.B. 558,A.B. 564,A.B. 585,A.B. 64,A.B. 648,A.B. 67,A.B. 680,A.B. 683,A.B. 699,A.B. 713,A.B. 72,A.B. 745,A.B. 766,A.B. 776,A.B. 802,A.B. 818,A.B. 842,A.B. 843,A.B. 881,A.B. 896,A.B. 897,A.B. 906,A.B. 96,A.B. 962,A.B. 965,A.B. 992,AJR-4,S.B. 1,S.B. 18,S.B. 204,S.B. 25,S.B. 260,S.B. 261,S.B. 27,S.B. 29,S.B. 30,S.B. 31,S.B. 32,S.B. 339,S.B. 342,S.B. 343,S.B. 345,S.B. 359,S.B. 372,S.B. 38,S.B. 406,S.B. 413,S.B. 416,S.B. 419,S.B. 423,S.B. 429,S.B. 437,S.B. 439,S.B. 439,S.B. 44,S.B. 449,S.B. 45,S.B. 467,S.B. 47,S.B. 474,S.B. 475,S.B. 479,S.B. 500,S.B. 506,S.B. 527,S.B. 529,S.B. 533,S.B. 54,S.B. 542,S.B. 551,S.B. 560,S.B. 580,S.B. 582,S.B. 589,S.B. 595,S.B. 596,S.B. 599,S.B. 612,S.B. 617,S.B. 643,S.B. 66,S.B. 662,S.B. 67,S.B. 671,S.B. 68,S.B. 726,S.B. 730,S.B. 733,S.B. 771,S.B. 83,S.B. 84,S.B. 99,A.B. 1177"
@@ -200,4 +202,17 @@ class MyCronJob(CronJobBase):
         getFullAssemblyAgenda()
         getFullSenateAgenda()
 
-            
+def uploadBills(dataframe):
+    for index, row in dataframe.iterrows():
+        #clean name
+        name = row['Bill'].upper()
+        name = name.replace('-',' ')
+        name = name.replace('AB', 'A.B.')
+        name = name.replace('SB', 'S.B.')
+    
+        author = row['Author']
+        # find author
+
+        title = row['Title']
+        sector = row['Sector']
+        # get or create sector

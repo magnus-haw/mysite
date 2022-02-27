@@ -71,6 +71,7 @@ class Bill(BaseModel):
 
     name = models.CharField(max_length=100)
     number = models.PositiveIntegerField(null=True, blank=True)
+    house = models.CharField(max_length=100, null=True, blank=True)
     author = models.CharField(max_length=50, null=True, blank=True)
     link = models.URLField(null=True)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
