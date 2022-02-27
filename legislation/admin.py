@@ -36,7 +36,7 @@ class SupportLetterInline(admin.StackedInline):
 class BillAdmin(admin.ModelAdmin):
     list_display =('name','author','sector','mitigation','adaptation', 'stance','effort','description', 'last_modified')
     search_fields = ['name','author','description', 'sector__name','mitigation','adaptation', 'stance','effort','strategy', 'comments']
-    list_filter = ['sector','stance','last_modified']
+    list_filter = ['sector','stance','effort','last_modified']
     inlines = (BillAmendmentInline,SupportLetterInline,FileAttachmentInline,)
 
 class CommitteeAdmin(admin.ModelAdmin):

@@ -37,6 +37,7 @@ class Session(BaseModel):
     year_start = models.PositiveIntegerField()
     year_end = models.PositiveIntegerField()
     description = models.CharField(max_length=200)
+    follows = models.TextField(null=True, blank=True, default='')
 
     def __str__(self):
         return str(self.state+ " ")+str(self.house)+str(self.year_start)
@@ -71,7 +72,6 @@ class Bill(BaseModel):
 
     name = models.CharField(max_length=100)
     number = models.PositiveIntegerField(null=True, blank=True)
-    house = models.CharField(max_length=100, null=True, blank=True)
     author = models.CharField(max_length=50, null=True, blank=True)
     link = models.URLField(null=True)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
