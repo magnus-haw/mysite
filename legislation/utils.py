@@ -33,7 +33,7 @@ def saveAgenda(sorted_agendas, house):
         for bill in hr['bills']:
             if bill['title'] in session.follows:
                 mybill, bill_created = Bill.objects.get_or_create(name=bill['title'],session = session)
-                if bill_created:
+                if 1:
                     mybill.number = int(bill['title'].split(' ')[-1])
                     mybill.author=bill['author']
                     mybill.description=bill['description']
