@@ -24,7 +24,7 @@ def saveAgenda(sorted_agendas, house):
 
         myhearing, hearing_created = Hearing.objects.get_or_create(date=hr['date'], session = session, committee=committee)
         if hearing_created:
-            myhearing.letter_due_date = hr['date'] - timedelta(days=7)
+            myhearing.letter_due_date = hr['date'] - timedelta(days=committee.letter_days)
             myhearing.link=hr['link']
         myhearing.time=hr['time']
         myhearing.location=hr['location']
