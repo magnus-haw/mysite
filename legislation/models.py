@@ -123,9 +123,9 @@ class Hearing(BaseModel):
     date = models.DateField()
     letter_due_date = models.DateField(null=True)
     letter_date_confirmed = models.BooleanField(default=False)
-    time = models.CharField(max_length=100)
-    location = models.CharField(max_length=200)
-    link = models.URLField()
+    time = models.CharField(null=True, max_length=100)
+    location = models.CharField(null=True, max_length=200)
+    link = models.URLField(null=True)
     bills = models.ManyToManyField(Bill)
 
     def __str__(self):

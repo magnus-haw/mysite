@@ -28,18 +28,25 @@ def saveAgenda(sorted_agendas, house):
             myhearing.link=hr['link']
         myhearing.time=hr['time']
         myhearing.location=hr['location']
-        myhearing.save()
-        
+        if myhearing.location is None:
+            myhearing.location = 'TBD'
+        try:
+            myhearing.save()
+        except:
+            pass
+
         for bill in hr['bills']:
             if bill['title'] in session.follows:
                 mybill, bill_created = Bill.objects.get_or_create(name=bill['title'],session = session)
-                if 1:
+                try:
                     mybill.number = int(bill['title'].split(' ')[-1])
                     mybill.author=bill['author']
                     mybill.description=bill['description']
                     mybill.link=bill['link']
                     mybill.save()
-                myhearing.bills.add(mybill)
+                    myhearing.bills.add(mybill)
+                except:
+                    pass
 
 def getSenateCommitteeLinks(URL = "https://www.senate.ca.gov/committees"):
     cpage = requests.get(URL)
