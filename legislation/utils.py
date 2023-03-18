@@ -37,6 +37,7 @@ def saveAgenda(sorted_agendas, house):
 
         for bill in hr['bills']:
             if bill['title'] in session.follows:
+                #print(bill['title'])
                 mybill, bill_created = Bill.objects.get_or_create(name=bill['title'],session = session)
                 try:
                     mybill.number = int(bill['title'].split(' ')[-1])
@@ -145,15 +146,15 @@ def getFullSenateAgenda():
 def getAssemblyCommitteeLinks(URL = "https://www.assembly.ca.gov/committees"):
     cpage = requests.get(URL)
     csoup = BeautifulSoup(cpage.content,'lxml')
-    clinks = csoup.find('div',id='block-views-view_StandingCommittee-block_1').find('div','view-content').find_all('a')
+    clinks = csoup.find('div',id='committees_wrapper').find('ul').find_all('a')
     committees = [{'link':link['href'], 'Name':link.string} for link in clinks]
     return committees
 
 def parseAssemblyMeasureRow(row):
     link = row.find('a')['href']
     author = row.find('span', 'Author').string
-    mtype = row.find('a').find("span",'MeasureType').string
-    mnumber = row.find('a').find("span", 'MeasureNum').contents[1]
+    mtype = row.find('a').find("span","'MeasureType'").string
+    mnumber = row.find('a').find("span", "'MeasureNum'").contents[1]
     title = mtype + mnumber
     description = row.find('span', 'Topic').string
 
@@ -174,7 +175,7 @@ def getAssemblyCommitteeAgenda(soup,URL):
 
     try:
 
-        block = soup.find('h2',text="Committee Hearings ").parent
+        block = soup.find('h4',text="Committee Hearings").parent
         dates = block.find_all('h5')
         meets = block.find_all("div", "ADF130")
 

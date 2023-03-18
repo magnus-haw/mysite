@@ -18,7 +18,9 @@ def index(request):
 
 def bill_list(request):
     """View function for home page of site."""
-    bills = Bill.objects.all()
+    now = timezone.now()
+    ss = Session.objects.filter(year_start=now.year)
+    bills = Bill.objects.filter(session__in=ss)
     context = {
          'bills':bills,
     }
@@ -55,7 +57,7 @@ def assembly(request):
     else:
         sorted_agendas = getFullAssemblyAgenda()
         saveAgenda(sorted_agendas, 'Assembly')
-        agenda = Agenda.objects.filter(house='Assembly').latest('created_at')
+        agenda = Session.objects.filter(house='Assembly').latest('created_at')
     hearings = agenda.hearing_set.filter(date__gte=timezone.now() )    
     context = {
          'agenda':agenda,
