@@ -36,7 +36,7 @@ def saveAgenda(sorted_agendas, house):
             pass
 
         for bill in hr['bills']:
-            if bill['title'] in session.follows:
+            if bill['title']+',' in session.follows:
                 #print(bill['title'])
                 mybill, bill_created = Bill.objects.get_or_create(name=bill['title'],session = session)
                 try:
