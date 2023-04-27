@@ -36,16 +36,20 @@ def saveAgenda(sorted_agendas, house):
             pass
 
         for bill in hr['bills']:
-            if bill['title']+',' in session.follows:
-                #print(bill['title'])
-                mybill, bill_created = Bill.objects.get_or_create(name=bill['title'],session = session)
+            if bill['name']+',' in session.follows:
+                #print(bill['name'])
+                mybill, bill_created = Bill.objects.get_or_create(name=bill['name'],session = session)
+                myhearing.bills.add(mybill)
                 try:
-                    mybill.number = int(bill['title'].split(' ')[-1])
+                    mybill.number = int(bill['name'].split(' ')[-1])
+                    mybill.save()
+                except:
+                    pass
+                try:
                     mybill.author=bill['author']
                     mybill.description=bill['description']
                     mybill.link=bill['link']
                     mybill.save()
-                    myhearing.bills.add(mybill)
                 except:
                     pass
 
@@ -101,10 +105,10 @@ def parseSenateMeasureRow(row):
     author = row.find('span', 'Author').string
     mtype = row.find('a').find("span",'MeasureType').string
     mnumber = row.find('a').find("span", 'MeasureNum').contents[1]
-    title = mtype + mnumber
+    name = mtype + mnumber
     description = row.find('span', 'Topic').string
 
-    return {"title":title, "link":link, "author":author, "description":description}
+    return {"name":name, "link":link, "author":author, "description":description}
 
 def parseSenateMeeting(meet,URL,cname):
     date_str = meet.find("div","calendarDate").string
@@ -155,10 +159,10 @@ def parseAssemblyMeasureRow(row):
     author = row.find('span', 'Author').string
     mtype = row.find('a').find("span","'MeasureType'").string
     mnumber = row.find('a').find("span", "'MeasureNum'").contents[1]
-    title = mtype + mnumber
+    name = mtype + mnumber
     description = row.find('span', 'Topic').string
 
-    return {"title":title, "link":link, "author":author, "description":description}
+    return {"name":name, "link":link, "author":author, "description":description}
 
 def parseAssemblyMeeting(agenda,date,URL,cname):
     date = parser.parse(date.string)

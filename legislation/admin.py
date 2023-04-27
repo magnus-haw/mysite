@@ -45,8 +45,8 @@ class CommitteeAdmin(admin.ModelAdmin):
 
 class HearingAdmin(admin.ModelAdmin):
     list_display = ('committee','session','date','time','letter_due_date','last_modified')
-    list_filter = ['letter_due_date','last_modified',]
-    search_fields = ['committee','session','date','time','letter_due_date','bills']
+    list_filter = ['letter_due_date','session',]
+    search_fields = ['committee__name','session__house','date','bills__name']
 
 class BillAmendmentAdmin(admin.ModelAdmin):
     list_display = ('bill','date','description','importance','last_modified')
