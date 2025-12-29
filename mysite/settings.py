@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'research.apps.ResearchConfig',
     'wiki.apps.WikiConfig',
-    'legislation.apps.LegislationConfig',
-    'ckeditor',
-    'django_cron',
+    'tinymce',
     'django_extensions',
 ]
 
@@ -55,10 +53,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CRON_CLASSES = [
-    "legislation.utils.MyCronJob",
-    # ...
-]
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -133,18 +127,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
 ADMIN_SITE_HEADER = "My shiny new administration"
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'
-CKEDITOR_CONFIGS = {
-    'minutes': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Styles', 'Format', 'Font', 'FontSize'],
-            ['Bold', 'Italic', 'Underline'],'/',
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['Image','Table','HorizontalRule','Smiley','SpecialChar'],
-            ['RemoveFormat', 'Source']
-        ]
-    },
-}

@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField
 
 # Create your models here.
 Countries = (
@@ -53,8 +53,8 @@ class Person(models.Model):
 class Page(models.Model):
     name = models.CharField(max_length=50,unique=True)
     person = models.ForeignKey(Person,blank=True,null=True,on_delete=models.SET_NULL)
-    block0 = RichTextField(config_name='minutes',blank=True,null=True)
-    block1 = RichTextField(config_name='minutes',blank=True,null=True)
+    block0 = HTMLField(blank=True,null=True)
+    block1 = HTMLField(blank=True,null=True)
     file1 = models.FileField(blank=True,null=True)
     file2 = models.FileField(blank=True,null=True)
     file3 = models.FileField(blank=True,null=True)

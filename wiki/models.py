@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField
 from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
@@ -9,7 +9,7 @@ from research.models import Person
 
 class Article(models.Model):
     name = models.CharField(max_length=100)
-    text = RichTextField(config_name='minutes')
+    text = HTMLField()
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     author = models.ForeignKey(Person,null=True,on_delete=models.SET_NULL)
@@ -24,7 +24,7 @@ class Article(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    text = RichTextField(config_name='minutes')
+    text = HTMLField()
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
@@ -39,7 +39,7 @@ class Category(models.Model):
 class Topic(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    text = RichTextField(config_name='minutes')
+    text = HTMLField()
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
@@ -51,7 +51,7 @@ class Topic(models.Model):
 class Subtopic(models.Model):
     name = models.CharField(max_length=100)
     topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
-    text = RichTextField(config_name='minutes')
+    text = HTMLField()
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
@@ -62,7 +62,7 @@ class Subtopic(models.Model):
 
 class HtmlBlock(models.Model):
     name = models.CharField(max_length=50)
-    text = RichTextField(config_name='minutes')
+    text = HTMLField()
     created = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now= True)
     visible = models.BooleanField(default=True)
